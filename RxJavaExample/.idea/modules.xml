@@ -2,8 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/WindApp.iml" filepath="$PROJECT_DIR$/WindApp.iml" />
-      <module fileurl="file://$PROJECT_DIR$/app/WindApp.iml" filepath="$PROJECT_DIR$/app/WindApp.iml" />
+      <module fileurl="file://$PROJECT_DIR$/RxJavaExample.iml" filepath="$PROJECT_DIR$/RxJavaExample.iml" />
+      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>
   </component>
 </project>
