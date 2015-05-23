@@ -8,7 +8,6 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
-import butterknife.OnClick;
 import com.example.germangirod.rxjavaexample.R;
 import com.example.germangirod.rxjavaexample.api.model.CurrentWeather;
 import java.util.List;
@@ -32,9 +31,17 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.WeatherRowHold
         this.onRowClick=onRowClick;
     }
 
-    @Override public WeatherRowHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
+    @Override public WeatherRowHolder onCreateViewHolder(ViewGroup viewGroup, final int i) {
         View v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item_weather_row, viewGroup, false);
         WeatherRowHolder weatherRowHolder = new WeatherRowHolder(v);
+
+        v.setOnClickListener(new View.OnClickListener() {
+            @Override public void onClick(View v) {
+                onRowClick.clickWeatherRow(v,i);
+            }
+        });
+
+
         return weatherRowHolder;
     }
 
@@ -53,7 +60,7 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.WeatherRowHold
         return currentWeathers.size();
     }
 
-    public class WeatherRowHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    public class WeatherRowHolder extends RecyclerView.ViewHolder{
 
         @InjectView(R.id.station_name) TextView stationName;
         @InjectView(R.id.station_distance) TextView stationDistance;
@@ -62,20 +69,10 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.WeatherRowHold
             super(itemView);
             ButterKnife.inject(this, itemView);
         }
-        @OnClick(R.id.station_name) void click(View v ){
 
-            onRowClick.clickthis(v, getPosition());
-        }
-
-        @Override public void onClick(View v) {
-
-            onRowClick.clickWeatherRow( v, getPosition());
-        }
     }
 
     public interface onRowClick{
         public void clickWeatherRow(View v, int i);
-
-        public void clickthis(View v,int i);
     }
 }
