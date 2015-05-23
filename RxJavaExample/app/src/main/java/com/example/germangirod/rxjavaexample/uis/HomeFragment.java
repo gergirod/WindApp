@@ -9,7 +9,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
-import com.example.germangirod.rxjavaexample.R;
+import com.example.germangirod.windapp.R;
 import com.example.germangirod.rxjavaexample.api.WeatherForcastLocation;
 import com.example.germangirod.rxjavaexample.api.WeatherForcastLocationApi;
 import com.example.germangirod.rxjavaexample.api.model.CurrentWeather;
