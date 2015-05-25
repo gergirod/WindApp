@@ -24,7 +24,6 @@ import rx.schedulers.Schedulers;
  */
 public class HomeFragment extends Fragment {
 
-
     private WeatherForcastLocation api;
     private HomeAdapter homeAdapter;
     @InjectView(R.id.my_recycler_view) RecyclerView recyclerView;
@@ -37,37 +36,28 @@ public class HomeFragment extends Fragment {
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
-        homeAdapter= new HomeAdapter(getActivity(),null);
+        homeAdapter = new HomeAdapter(getActivity(), null);
 
-        api.getCurrentWeather("-34.61","-58.37")
+        api.getCurrentWeather("-34.61", "-58.37")
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Action1<List<CurrentWeather>>() {
                     @Override public void call(List<CurrentWeather> a) {
-                        homeAdapter= new HomeAdapter(getActivity(),a);
+                        homeAdapter = new HomeAdapter(getActivity(), a);
 
                         recyclerView.setAdapter(homeAdapter);
 
                         homeAdapter.setRowClick(new HomeAdapter.onRowClick() {
                             @Override public void clickWeatherRow(View v, int i) {
                             }
-
-                            @Override public void clickthis(View v, int i) {
-                            }
                         });
-
                     }
-                },new Action1<Throwable>() {
+                }, new Action1<Throwable>() {
                     @Override public void call(Throwable throwable) {
                         //name.setText(String.valueOf(throwable));
                     }
                 });
 
-
-
-
         return v;
     }
-
-
 }
