@@ -49,7 +49,7 @@ public class HomeFragment extends Fragment {
 
                         homeAdapter.setRowClick(new HomeAdapter.onRowClick() {
                             @Override public void clickWeatherRow(View v, int i) {
-                                
+                                HomeDetail.goTo(getActivity(),a.get(i));
                             }
                         });
                     }
