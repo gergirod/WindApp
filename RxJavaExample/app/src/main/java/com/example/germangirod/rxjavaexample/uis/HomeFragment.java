@@ -42,13 +42,14 @@ public class HomeFragment extends Fragment {
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Action1<List<CurrentWeather>>() {
-                    @Override public void call(List<CurrentWeather> a) {
+                    @Override public void call(final List<CurrentWeather> a) {
                         homeAdapter = new HomeAdapter(getActivity(), a);
 
                         recyclerView.setAdapter(homeAdapter);
 
                         homeAdapter.setRowClick(new HomeAdapter.onRowClick() {
                             @Override public void clickWeatherRow(View v, int i) {
+                                
                             }
                         });
                     }
