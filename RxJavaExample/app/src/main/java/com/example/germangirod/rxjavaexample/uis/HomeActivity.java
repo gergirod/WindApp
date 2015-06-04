@@ -5,7 +5,6 @@ import android.support.v4.app.FragmentTransaction;
 import com.example.germangirod.rxjavaexample.BaseActivity;
 import com.example.germangirod.rxjavaexample.R;
 
-
 /**
  * Created by germangirod on 5/13/15.
  */
