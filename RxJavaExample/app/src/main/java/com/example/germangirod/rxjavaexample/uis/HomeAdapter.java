@@ -53,7 +53,7 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.WeatherRowHold
     }
 
     @Override public int getItemCount() {
-        return currentWeathers.size();
+        return G.size();
     }
 
     public class WeatherRowHolder extends RecyclerView.ViewHolder implements View.OnClickListener{

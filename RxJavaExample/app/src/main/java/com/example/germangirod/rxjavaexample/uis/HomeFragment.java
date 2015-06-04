@@ -1,6 +1,5 @@
 package com.example.germangirod.rxjavaexample.uis;
 
-import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -34,15 +33,6 @@ public class HomeFragment extends Fragment {
         View v = inflater.inflate(R.layout.fragment_home, container, false);
         ButterKnife.inject(this, v);
         api = new WeatherForcastLocationApi();
-
-        int ve = 0;
-        try {
-            ve = getActivity().getPackageManager().getPackageInfo("com.google.android.gms", 0 ).versionCode;
-            Log.e("mirar esto ","mirar "+ve);
-
-        } catch (PackageManager.NameNotFoundException e) {
-            e.printStackTrace();
-        }
 
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
