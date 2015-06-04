@@ -8,7 +8,7 @@ import android.view.MenuItem;
 /**
  * Created by germangirod on 5/15/15.
  */
-public abstract class BaseActivity extends ActionBarActivity {
+public abstract class BaseActivity extends ActionBarActivity  {
 
     public abstract int getLayoutId();
 

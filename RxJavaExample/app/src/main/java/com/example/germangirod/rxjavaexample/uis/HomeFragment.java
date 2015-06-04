@@ -1,10 +1,12 @@
 package com.example.germangirod.rxjavaexample.uis;
 
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -33,6 +35,15 @@ public class HomeFragment extends Fragment {
         ButterKnife.inject(this, v);
         api = new WeatherForcastLocationApi();
 
+        int ve = 0;
+        try {
+            ve = getActivity().getPackageManager().getPackageInfo("com.google.android.gms", 0 ).versionCode;
+            Log.e("mirar esto ","mirar "+ve);
+
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+        }
+
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
@@ -50,6 +61,7 @@ public class HomeFragment extends Fragment {
                         homeAdapter.setRowClick(new HomeAdapter.onRowClick() {
                             @Override public void clickWeatherRow(View v, int i) {
                                 HomeDetail.goTo(getActivity(),a.get(i));
+                                Log.e("mirar cual agarro ","mirar "+a.get(i).getDistance());
                             }
                         });
                     }
