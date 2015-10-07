@@ -1,8 +1,8 @@
 package com.example.germangirod.rxjavaexample.uis;
 
+import android.location.Location;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -22,7 +22,7 @@ import rx.schedulers.Schedulers;
 /**
  * Created by germangirod on 5/13/15.
  */
-public class HomeFragment extends Fragment {
+public class HomeFragment extends LocationFragment {
 
     private WeatherForcastLocation api;
     private HomeAdapter homeAdapter;
@@ -38,7 +38,12 @@ public class HomeFragment extends Fragment {
 
         homeAdapter = new HomeAdapter(getActivity(), null);
 
-        api.getCurrentWeather("-34.61", "-58.37")
+        return v;
+    }
+
+    @Override public void onLocationChanged(Location location) {
+        //super.onLocationChanged(location);
+        api.getCurrentWeather(String.valueOf(location.getLatitude()), String.valueOf(location.getLongitude()))
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Action1<List<CurrentWeather>>() {
@@ -49,7 +54,7 @@ public class HomeFragment extends Fragment {
 
                         homeAdapter.setRowClick(new HomeAdapter.onRowClick() {
                             @Override public void clickWeatherRow(View v, int i) {
-                                HomeDetail.goTo(getActivity(),a.get(i));
+                                HomeDetail.goTo(getActivity(), a.get(i));
                             }
                         });
                     }
@@ -58,7 +63,5 @@ public class HomeFragment extends Fragment {
                         //name.setText(String.valueOf(throwable));
                     }
                 });
-
-        return v;
     }
 }

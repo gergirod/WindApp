@@ -9,7 +9,6 @@ import com.example.germangirod.rxjavaexample.BaseActivity;
 import com.example.germangirod.rxjavaexample.R;
 import android.support.v7.widget.Toolbar;
 
-
 /**
  * Created by germangirod on 5/13/15.
  */
