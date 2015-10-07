@@ -14,18 +14,18 @@ import com.example.germangirod.rxjavaexample.R;
 import com.example.germangirod.rxjavaexample.api.WeatherForcastLocation;
 import com.example.germangirod.rxjavaexample.api.WeatherForcastLocationApi;
 import com.example.germangirod.rxjavaexample.api.model.CurrentWeather;
+import com.example.germangirod.rxjavaexample.api.presenters.CurrentWeatherData;
+import com.example.germangirod.rxjavaexample.api.presenters.CurrentWeatherPresenter;
 import java.util.List;
-import rx.android.schedulers.AndroidSchedulers;
-import rx.functions.Action1;
-import rx.schedulers.Schedulers;
 
 /**
  * Created by germangirod on 5/13/15.
  */
-public class HomeFragment extends LocationFragment {
+public class HomeFragment extends LocationFragment implements CurrentWeatherPresenter {
 
     private WeatherForcastLocation api;
     private HomeAdapter homeAdapter;
+    private CurrentWeatherData currentWeatherData;
     @InjectView(R.id.my_recycler_view) RecyclerView recyclerView;
 
     @Override public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -42,26 +42,26 @@ public class HomeFragment extends LocationFragment {
     }
 
     @Override public void onLocationChanged(Location location) {
-        //super.onLocationChanged(location);
-        api.getCurrentWeather(String.valueOf(location.getLatitude()), String.valueOf(location.getLongitude()))
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Action1<List<CurrentWeather>>() {
-                    @Override public void call(final List<CurrentWeather> a) {
-                        homeAdapter = new HomeAdapter(getActivity(), a);
+        currentWeatherData = new CurrentWeatherData();
+        currentWeatherData.setView(this);
+        currentWeatherData.getCurrentWeather(location);
+    }
 
-                        recyclerView.setAdapter(homeAdapter);
+    @Override public void getCurrentWeather(final List<CurrentWeather> currentWeathers) {
 
-                        homeAdapter.setRowClick(new HomeAdapter.onRowClick() {
-                            @Override public void clickWeatherRow(View v, int i) {
-                                HomeDetail.goTo(getActivity(), a.get(i));
-                            }
-                        });
-                    }
-                }, new Action1<Throwable>() {
-                    @Override public void call(Throwable throwable) {
-                        //name.setText(String.valueOf(throwable));
-                    }
-                });
+        homeAdapter = new HomeAdapter(getActivity(), currentWeathers);
+
+        recyclerView.setAdapter(homeAdapter);
+
+        homeAdapter.setRowClick(new HomeAdapter.onRowClick() {
+            @Override public void clickWeatherRow(View v, int i) {
+                HomeDetail.goTo(getActivity(), currentWeathers.get(i));
+            }
+        });
+
+    }
+
+    @Override public void onError(Throwable throwable) {
+
     }
 }
