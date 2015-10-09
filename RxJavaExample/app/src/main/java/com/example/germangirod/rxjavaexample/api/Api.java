@@ -14,10 +14,19 @@ import rx.Observable;
 public interface Api {
 
     @GET("/weather")
-    Observable<WeatherResponse> getWeather(@Query("q") String cityName);
+    Observable<WeatherResponse> getWeatherByCityName(@Query("q") String cityName);
+
+    @GET("/weather")
+    Observable<WeatherResponse> getWeatherByCityId(@Query("id") String cityId);
+
+    @GET("/weather")
+    Observable<WeatherResponse> getWeatherByCoordinates(@Query("lat") String lat, @Query("lon") String lon);
 
     @GET("/forecast")
-    Observable<Forecast> getForecast(@Query("q") String city);
+    Observable<Forecast> getCityForecastById(@Query("id") String cityId);
+
+    @GET("/group")
+    Observable<List<WeatherResponse>> getCityListById(@Query("id") String cityId);
 
     @GET("/station/find")
     Observable<List<CurrentWeather>> getCurrentWeather(@Query("lat")String lat, @Query("lon")String lon);

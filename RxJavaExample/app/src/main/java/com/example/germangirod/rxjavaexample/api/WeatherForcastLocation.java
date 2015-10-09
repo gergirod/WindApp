@@ -16,5 +16,4 @@ public interface WeatherForcastLocation {
     Observable<Forecast> getLocationForecast(String name);
 
     Observable<List<CurrentWeather>> getCurrentWeather(String lat, String lon);
-
 }

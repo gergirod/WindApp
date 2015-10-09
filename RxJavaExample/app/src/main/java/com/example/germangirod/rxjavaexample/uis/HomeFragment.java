@@ -8,6 +8,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 import com.example.germangirod.rxjavaexample.R;
@@ -27,6 +28,7 @@ public class HomeFragment extends LocationFragment implements CurrentWeatherPres
     private HomeAdapter homeAdapter;
     private CurrentWeatherData currentWeatherData;
     @InjectView(R.id.my_recycler_view) RecyclerView recyclerView;
+    @InjectView(R.id.loading) ProgressBar loading;
 
     @Override public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_home, container, false);
@@ -48,10 +50,10 @@ public class HomeFragment extends LocationFragment implements CurrentWeatherPres
     }
 
     @Override public void getCurrentWeather(final List<CurrentWeather> currentWeathers) {
-
         homeAdapter = new HomeAdapter(getActivity(), currentWeathers);
 
         recyclerView.setAdapter(homeAdapter);
+        loading.setVisibility(View.GONE);
 
         homeAdapter.setRowClick(new HomeAdapter.onRowClick() {
             @Override public void clickWeatherRow(View v, int i) {
