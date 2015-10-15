@@ -22,16 +22,16 @@ import java.util.List;
 /**
  * Created by germangirod on 5/13/15.
  */
-public class HomeFragment extends Fragment implements MyLocationsCurrentWeatherPresenter {
+public class MyLocationsWeatherFragment extends Fragment implements MyLocationsCurrentWeatherPresenter {
 
+    @InjectView(R.id.my_recycler_view) RecyclerView recyclerView;
+    @InjectView(R.id.loading) ProgressBar loading;
     private WeatherForecastLocation api;
     private HomeAdapter homeAdapter;
     private MyLocationsCurrentWeatherData myLocationsCurrentWeatherData;
-    @InjectView(R.id.my_recycler_view) RecyclerView recyclerView;
-    @InjectView(R.id.loading) ProgressBar loading;
 
     public static Fragment getInstance() {
-        HomeFragment f = new HomeFragment();
+        MyLocationsWeatherFragment f = new MyLocationsWeatherFragment();
         return f;
     }
 
@@ -48,10 +48,10 @@ public class HomeFragment extends Fragment implements MyLocationsCurrentWeatherP
         return v;
     }
 
-    private void getWeatherList(){
+    private void getWeatherList() {
         myLocationsCurrentWeatherData = new MyLocationsCurrentWeatherData();
         myLocationsCurrentWeatherData.setView(this);
-        myLocationsCurrentWeatherData.getMyCurrentWeatherList("3435910");
+        //myLocationsCurrentWeatherData.getCurrentWeather("3435910");
     }
 
     @Override public void getCurrentWeather(final List<WeatherResponse> currentWeathers) {

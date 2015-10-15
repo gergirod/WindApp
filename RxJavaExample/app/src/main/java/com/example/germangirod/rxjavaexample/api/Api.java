@@ -29,7 +29,7 @@ public interface Api {
     Observable<List<WeatherResponse>> getCityListById(@Query("id") String cityId, @Query("APPID") String key);
 
     @GET("/station/find")
-    Observable<List<CurrentWeather>> getWeatherStationsByCoordinates(@Query("lat")String lat, @Query("lon")String lon);
+    Observable<List<CurrentWeather>> getWeatherStationsByCoordinates(@Query("lat")String lat, @Query("lon")String lon, @Query("APPID") String key);
 
 
 }

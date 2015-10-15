@@ -6,7 +6,7 @@ import java.util.List;
 /**
  * Created by germangirod on 10/7/15.
  */
-public interface LocationsCurrentWeatherPresenter {
+public interface MyLocationsCurrentWeatherPresenter {
 
     void getCurrentWeather(List<WeatherResponse> currentWeathers);
 

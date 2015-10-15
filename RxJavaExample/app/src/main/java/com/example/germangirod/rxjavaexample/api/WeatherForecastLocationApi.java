@@ -13,4 +13,8 @@ public class WeatherForecastLocationApi implements WeatherForecastLocation {
     @Override public Observable<List<WeatherResponse>> getLocationsWeatherById(String id) {
         return RestClient.get().getCityListById(id, BuildConfig.APP_KEY);
     }
+
+    @Override public Observable<WeatherResponse> getLocationCurrentWeather(String lat, String lng) {
+        return RestClient.get().getWeatherByCoordinates(lat, lng, BuildConfig.APP_KEY);
+    }
 }

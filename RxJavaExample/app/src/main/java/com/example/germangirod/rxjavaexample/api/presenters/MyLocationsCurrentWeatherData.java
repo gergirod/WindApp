@@ -10,15 +10,15 @@ import rx.schedulers.Schedulers;
 /**
  * Created by germangirod on 10/7/15.
  */
-public class LocationsCurrentWeatherData {
+public class MyLocationsCurrentWeatherData {
 
-    private LocationsCurrentWeatherPresenter locationsCurrentWeatherPresenter;
+    private MyLocationsCurrentWeatherPresenter locationsCurrentWeatherPresenter;
 
-    public void setView(LocationsCurrentWeatherPresenter locationsCurrentWeatherPresenter) {
+    public void setView(MyLocationsCurrentWeatherPresenter locationsCurrentWeatherPresenter) {
         this.locationsCurrentWeatherPresenter = locationsCurrentWeatherPresenter;
     }
 
-    public void getCurrentWeather(String id) {
+    public void getMyCurrentWeatherList(String id) {
         WeatherForecastLocationApi weatherForecastLocationApi = new WeatherForecastLocationApi();
         weatherForecastLocationApi.getLocationsWeatherById(id).
                 subscribeOn(Schedulers.io())
@@ -33,4 +33,5 @@ public class LocationsCurrentWeatherData {
                     }
                 });
     }
+
 }

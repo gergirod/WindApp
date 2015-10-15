@@ -1,13 +1,15 @@
 package com.example.germangirod.rxjavaexample.uis;
 
 import android.os.Bundle;
-import android.support.v4.app.FragmentTransaction;
+import android.support.design.widget.TabLayout;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
+import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 import com.example.germangirod.rxjavaexample.BaseActivity;
 import com.example.germangirod.rxjavaexample.R;
-import android.support.v7.widget.Toolbar;
 
 /**
  * Created by germangirod on 5/13/15.
@@ -15,8 +17,11 @@ import android.support.v7.widget.Toolbar;
 public class HomeActivity extends BaseActivity {
 
     @InjectView(R.id.toolbar) Toolbar toolbar;
+    @InjectView(R.id.tab_layout) TabLayout tabLayout;
+    @InjectView(R.id.pager) ViewPager viewPager;
 
-    private FragmentTransaction fragmentTransaction;
+    private HomePagerAdapter homePagerAdapter;
+    private String[] tableName = {"Current Location Weather","My Locations Weather"};
 
     @Override public int getLayoutId() {
         return R.layout.activity_home;
@@ -28,10 +33,44 @@ public class HomeActivity extends BaseActivity {
 
         ButterKnife.inject(this);
         setToolbar();
+        setTableLayoutTabs();
+        setViewPager();
+        setTabLayoutOnSelect();
 
-        fragmentTransaction = getSupportFragmentManager().beginTransaction();
-        fragmentTransaction.replace(R.id.main_content, new HomeFragment());
-        fragmentTransaction.commit();
+    }
+
+    private void setTableLayoutTabs(){
+
+        for(int i=0; i<tableName.length; i++){
+
+            tabLayout.addTab(tabLayout.newTab().setText(tableName[i]));
+
+        }
+
+        tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
+    }
+
+    private void setViewPager(){
+        homePagerAdapter = new HomePagerAdapter(getSupportFragmentManager());
+        viewPager.setAdapter(homePagerAdapter);
+        viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
+    }
+
+    private void setTabLayoutOnSelect(){
+        tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override public void onTabSelected(TabLayout.Tab tab) {
+                viewPager.setCurrentItem(tab.getPosition());
+                Log.e("mirar esto ","mirar la posicion "+tab.getPosition());
+            }
+
+            @Override public void onTabUnselected(TabLayout.Tab tab) {
+
+            }
+
+            @Override public void onTabReselected(TabLayout.Tab tab) {
+
+            }
+        });
     }
 
     private void setToolbar(){

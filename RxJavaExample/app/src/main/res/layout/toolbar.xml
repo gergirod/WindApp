@@ -18,6 +18,7 @@
             android:layout_height="4dp"
             android:background="@drawable/shadow"
             android:layout_below="@id/toolbar_layout"
-            android:id="@+id/shadow"/>
+            android:id="@+id/shadow"
+            android:visibility="gone"/>
 
 </LinearLayout>

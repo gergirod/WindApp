@@ -11,4 +11,6 @@ public interface WeatherForecastLocation {
 
     Observable<List<WeatherResponse>> getLocationsWeatherById(String id);
 
+    Observable<WeatherResponse> getLocationCurrentWeather(String lat, String lng);
+
 }
