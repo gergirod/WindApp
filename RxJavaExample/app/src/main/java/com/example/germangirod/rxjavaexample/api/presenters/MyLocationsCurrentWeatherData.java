@@ -1,8 +1,7 @@
 package com.example.germangirod.rxjavaexample.api.presenters;
 
 import com.example.germangirod.rxjavaexample.api.WeatherForecastLocationApi;
-import com.example.germangirod.rxjavaexample.api.model.WeatherResponse;
-import java.util.List;
+import com.example.germangirod.rxjavaexample.api.model.CurrentWeather;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action1;
 import rx.schedulers.Schedulers;
@@ -23,9 +22,9 @@ public class MyLocationsCurrentWeatherData {
         weatherForecastLocationApi.getLocationsWeatherById(id).
                 subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Action1<List<WeatherResponse>>() {
-                    @Override public void call(List<WeatherResponse> weatherResponses) {
-                        locationsCurrentWeatherPresenter.getCurrentWeather(weatherResponses);
+                .subscribe(new Action1<CurrentWeather>() {
+                    @Override public void call(CurrentWeather currentWeather) {
+                        locationsCurrentWeatherPresenter.getCurrentWeather(currentWeather);
                     }
                 }, new Action1<Throwable>() {
                     @Override public void call(Throwable throwable) {

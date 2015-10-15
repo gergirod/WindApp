@@ -4,12 +4,11 @@ import android.location.Location;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ProgressBar;
 import butterknife.ButterKnife;
-import butterknife.InjectView;
 import com.example.germangirod.rxjavaexample.R;
 import com.example.germangirod.rxjavaexample.api.model.WeatherResponse;
 import com.example.germangirod.rxjavaexample.api.presenters.LocationCurrentWeatherData;
@@ -20,7 +19,6 @@ import com.example.germangirod.rxjavaexample.api.presenters.LocationCurrentWeath
  */
 public class CurrentLocationWeatherFragment extends LocationBaseFragment implements LocationCurrentWeatherDataPresenter {
 
-    @InjectView(R.id.loading) ProgressBar loading;
     private LocationCurrentWeatherData locationCurrentWeatherData;
     private Location auxLocation;
 
@@ -61,11 +59,10 @@ public class CurrentLocationWeatherFragment extends LocationBaseFragment impleme
     }
 
     @Override public void getCurrentWeather(WeatherResponse currentWeathers) {
-        loading.setVisibility(View.GONE);
         //Todo show data in the card
     }
 
     @Override public void onError(Throwable throwable) {
-
+        Log.e("mirar esto ","mirar esto con locations"+throwable);
     }
 }

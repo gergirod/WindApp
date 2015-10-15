@@ -5,6 +5,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,10 +15,9 @@ import butterknife.InjectView;
 import com.example.germangirod.rxjavaexample.R;
 import com.example.germangirod.rxjavaexample.api.WeatherForecastLocation;
 import com.example.germangirod.rxjavaexample.api.WeatherForecastLocationApi;
-import com.example.germangirod.rxjavaexample.api.model.WeatherResponse;
+import com.example.germangirod.rxjavaexample.api.model.CurrentWeather;
 import com.example.germangirod.rxjavaexample.api.presenters.MyLocationsCurrentWeatherData;
 import com.example.germangirod.rxjavaexample.api.presenters.MyLocationsCurrentWeatherPresenter;
-import java.util.List;
 
 /**
  * Created by germangirod on 5/13/15.
@@ -27,7 +27,7 @@ public class MyLocationsWeatherFragment extends Fragment implements MyLocationsC
     @InjectView(R.id.my_recycler_view) RecyclerView recyclerView;
     @InjectView(R.id.loading) ProgressBar loading;
     private WeatherForecastLocation api;
-    private HomeAdapter homeAdapter;
+    private WeatherListAdapter weatherListAdapter;
     private MyLocationsCurrentWeatherData myLocationsCurrentWeatherData;
 
     public static Fragment getInstance() {
@@ -54,13 +54,13 @@ public class MyLocationsWeatherFragment extends Fragment implements MyLocationsC
         myLocationsCurrentWeatherData.getMyCurrentWeatherList("3435910");
     }
 
-    @Override public void getCurrentWeather(final List<WeatherResponse> currentWeathers) {
-        homeAdapter = new HomeAdapter(getActivity(), currentWeathers);
+    @Override public void getCurrentWeather(final CurrentWeather currentWeathers) {
+        weatherListAdapter = new WeatherListAdapter(getActivity(), currentWeathers.getWeatherResponse());
 
-        recyclerView.setAdapter(homeAdapter);
+        recyclerView.setAdapter(weatherListAdapter);
         loading.setVisibility(View.GONE);
 
-        homeAdapter.setRowClick(new HomeAdapter.onRowClick() {
+        weatherListAdapter.setRowClick(new WeatherListAdapter.onRowClick() {
             @Override public void clickWeatherRow(View v, int i) {
 
             }
@@ -68,6 +68,6 @@ public class MyLocationsWeatherFragment extends Fragment implements MyLocationsC
     }
 
     @Override public void onError(Throwable throwable) {
-
+        Log.e("mirar esto ","mirar esto mi lista "+throwable);
     }
 }

@@ -1,8 +1,8 @@
 package com.example.germangirod.rxjavaexample.api;
 
 import com.example.germangirod.rxjavaexample.BuildConfig;
+import com.example.germangirod.rxjavaexample.api.model.CurrentWeather;
 import com.example.germangirod.rxjavaexample.api.model.WeatherResponse;
-import java.util.List;
 import rx.Observable;
 
 /**
@@ -10,7 +10,7 @@ import rx.Observable;
  */
 public class WeatherForecastLocationApi implements WeatherForecastLocation {
 
-    @Override public Observable<List<WeatherResponse>> getLocationsWeatherById(String id) {
+    @Override public Observable<CurrentWeather> getLocationsWeatherById(String id) {
         return RestClient.get().getCityListById(id, BuildConfig.APP_KEY);
     }
 

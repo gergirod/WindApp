@@ -15,13 +15,13 @@ import java.util.List;
 /**
  * Created by germangirod on 5/23/15.
  */
-public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.WeatherRowHolder> {
+public class WeatherListAdapter extends RecyclerView.Adapter<WeatherListAdapter.WeatherRowHolder> {
 
     private Context context;
     private List<WeatherResponse> currentWeathers;
     private onRowClick onRowClick;
 
-    public HomeAdapter(Context context, List<WeatherResponse> currentWeathers) {
+    public WeatherListAdapter(Context context, List<WeatherResponse> currentWeathers) {
 
         this.context = context;
         this.currentWeathers = currentWeathers;
@@ -42,8 +42,8 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.WeatherRowHold
 
         WeatherResponse weatherResponse = currentWeathers.get(i);
 
+        weatherRowHolder.stationName.setText(String.valueOf(weatherResponse.getId()));
         weatherRowHolder.stationDistance.setText(weatherResponse.getName());
-        weatherRowHolder.stationName.setText(weatherResponse.getId());
     }
 
     @Override public int getItemCount() {
@@ -51,13 +51,13 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.WeatherRowHold
     }
 
     public interface onRowClick {
-        public void clickWeatherRow(View v, int i);
+        void clickWeatherRow(View v, int i);
     }
 
     public class WeatherRowHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-        @InjectView(R.id.station_name) TextView stationName;
         @InjectView(R.id.station_distance) TextView stationDistance;
+        @InjectView(R.id.station_name) TextView stationName;
 
         public WeatherRowHolder(View itemView) {
             super(itemView);

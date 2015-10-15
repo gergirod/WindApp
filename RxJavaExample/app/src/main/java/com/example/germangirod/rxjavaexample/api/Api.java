@@ -26,7 +26,7 @@ public interface Api {
     Observable<Forecast> getCityForecastById(@Query("id") String cityId, @Query("APPID") String key);
 
     @GET("/group")
-    Observable<List<WeatherResponse>> getCityListById(@Query("id") String cityId, @Query("APPID") String key);
+    Observable<CurrentWeather> getCityListById(@Query("id") String cityId, @Query("APPID") String key);
 
     @GET("/station/find")
     Observable<List<CurrentWeather>> getWeatherStationsByCoordinates(@Query("lat")String lat, @Query("lon")String lon, @Query("APPID") String key);

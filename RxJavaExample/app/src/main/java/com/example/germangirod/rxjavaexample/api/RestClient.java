@@ -26,7 +26,7 @@ public class RestClient {
 
     private static void setupRestClinet() {
 
-        RestAdapter builder = new RestAdapter.Builder().setEndpoint(ROOT).setClient(new OkClient(new OkHttpClient())).build();
+        RestAdapter builder = new RestAdapter.Builder().setEndpoint(ROOT).setLogLevel(RestAdapter.LogLevel.FULL).setClient(new OkClient(new OkHttpClient())).build();
 
         REST_Client = builder.create(Api.class);
     }
