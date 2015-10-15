@@ -61,7 +61,8 @@ public class CurrentLocationWeatherFragment extends LocationBaseFragment impleme
     }
 
     @Override public void getCurrentWeather(WeatherResponse currentWeathers) {
-
+        loading.setVisibility(View.GONE);
+        //Todo show data in the card
     }
 
     @Override public void onError(Throwable throwable) {

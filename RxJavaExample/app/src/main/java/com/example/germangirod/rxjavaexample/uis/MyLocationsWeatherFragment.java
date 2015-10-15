@@ -43,7 +43,7 @@ public class MyLocationsWeatherFragment extends Fragment implements MyLocationsC
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
-        //getWeatherList();
+        getWeatherList();
 
         return v;
     }
@@ -51,7 +51,7 @@ public class MyLocationsWeatherFragment extends Fragment implements MyLocationsC
     private void getWeatherList() {
         myLocationsCurrentWeatherData = new MyLocationsCurrentWeatherData();
         myLocationsCurrentWeatherData.setView(this);
-        //myLocationsCurrentWeatherData.getCurrentWeather("3435910");
+        myLocationsCurrentWeatherData.getMyCurrentWeatherList("3435910");
     }
 
     @Override public void getCurrentWeather(final List<WeatherResponse> currentWeathers) {
