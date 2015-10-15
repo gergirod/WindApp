@@ -14,22 +14,22 @@ import rx.Observable;
 public interface Api {
 
     @GET("/weather")
-    Observable<WeatherResponse> getWeatherByCityName(@Query("q") String cityName);
+    Observable<WeatherResponse> getWeatherByCityName(@Query("q") String cityName, @Query("APPID") String key);
 
     @GET("/weather")
-    Observable<WeatherResponse> getWeatherByCityId(@Query("id") String cityId);
+    Observable<WeatherResponse> getWeatherByCityId(@Query("id") String cityId, @Query("APPID") String key);
 
     @GET("/weather")
-    Observable<WeatherResponse> getWeatherByCoordinates(@Query("lat") String lat, @Query("lon") String lon);
+    Observable<WeatherResponse> getWeatherByCoordinates(@Query("lat") String lat, @Query("lon") String lon, @Query("APPID") String key);
 
     @GET("/forecast")
-    Observable<Forecast> getCityForecastById(@Query("id") String cityId);
+    Observable<Forecast> getCityForecastById(@Query("id") String cityId, @Query("APPID") String key);
 
     @GET("/group")
-    Observable<List<WeatherResponse>> getCityListById(@Query("id") String cityId);
+    Observable<List<WeatherResponse>> getCityListById(@Query("id") String cityId, @Query("APPID") String key);
 
     @GET("/station/find")
-    Observable<List<CurrentWeather>> getCurrentWeather(@Query("lat")String lat, @Query("lon")String lon);
+    Observable<List<CurrentWeather>> getWeatherStationsByCoordinates(@Query("lat")String lat, @Query("lon")String lon);
 
 
 }
