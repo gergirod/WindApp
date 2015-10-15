@@ -12,7 +12,7 @@ import com.google.android.gms.location.LocationServices;
 /**
  * Created by germangirod on 6/4/15.
  */
-public abstract class LocationFragment extends Fragment
+public abstract class LocationBaseFragment extends Fragment
         implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, LocationListener {
 
     private GoogleApiClient googleApiClient;

@@ -13,7 +13,7 @@ public class WeatherResponse {
     private Main main;
     private Wind wind;
     private Rain rain;
-    private List<Clouds> clouds;
+    private Clouds clouds;
     private int dt;
     private int id;
     private String name;
@@ -91,19 +91,19 @@ public class WeatherResponse {
         this.cod = cod;
     }
 
-    public List<Weather> getWeather() {
+    /*public List<Weather> getWeather() {
         return weather;
     }
 
     public void setWeather(List<Weather> weather) {
         this.weather = weather;
-    }
+    }*/
 
-    public List<Clouds> getClouds() {
+    public Clouds getClouds() {
         return clouds;
     }
 
-    public void setClouds(List<Clouds> clouds) {
+    public void setClouds(Clouds clouds) {
         this.clouds = clouds;
     }
 }

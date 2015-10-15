@@ -10,44 +10,24 @@ import retrofit.client.OkClient;
 public class RestClient {
 
     private static Api REST_Client;
-    private static String ROOT="http://api.openweathermap.org/data/2.5";
+    private static String ROOT = "http://api.openweathermap.org/data/2.5";
 
     static {
         setupRestClinet();
     }
 
-    private RestClient(){
-
-
+    private RestClient() {
 
     }
 
-    public static Api get(){
-
+    public static Api get() {
         return REST_Client;
     }
 
     private static void setupRestClinet() {
 
-
-
-
-        RestAdapter builder = new RestAdapter.Builder()
-                .setEndpoint(ROOT)
-                .setClient(new OkClient(new OkHttpClient()))
-                .build();
-
+        RestAdapter builder = new RestAdapter.Builder().setEndpoint(ROOT).setLogLevel(RestAdapter.LogLevel.FULL).setClient(new OkClient(new OkHttpClient())).build();
 
         REST_Client = builder.create(Api.class);
     }
-
-
-
-
-
-
-
-
-
-
 }

@@ -10,6 +10,7 @@ android {
         targetSdkVersion 22
         versionCode 1
         versionName "1.0"
+        buildConfigField "String", "APP_KEY", "\"309a4b3765a633e00d2bc2716df74a53\""
     }
     buildTypes {
         release {
@@ -24,14 +25,15 @@ android {
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     compile 'com.android.support:appcompat-v7:22.0.0'
+    compile 'com.android.support:design:22.2.0'
     compile 'io.reactivex:rxandroid:0.24.0'
     compile 'com.squareup.retrofit:retrofit:1.9.0'
     compile 'com.squareup.okhttp:okhttp-urlconnection:2.0.0'
     compile 'com.squareup.okhttp:okhttp:2.3.0'
     compile 'com.jakewharton:butterknife:6.1.0'
     compile 'joda-time:joda-time:2.5'
-    compile 'com.android.support:recyclerview-v7:21.0.+'
-    compile 'com.android.support:cardview-v7:21.0.+'
+    compile 'com.android.support:recyclerview-v7:22.0.+'
+    compile 'com.android.support:cardview-v7:22.0.+'
     compile 'com.google.android.gms:play-services:7.5.0'
 
 

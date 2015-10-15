@@ -9,10 +9,10 @@ import com.example.germangirod.rxjavaexample.api.model.CurrentWeather;
 /**
  * Created by germangirod on 5/27/15.
  */
-public class HomeDetail extends ActionBarActivity{
+public class WeatherDetailActivity extends ActionBarActivity {
 
     public static void goTo(Context context, CurrentWeather currentWeather) {
-        Intent intent = new Intent(context, HomeDetail.class);
+        Intent intent = new Intent(context, WeatherDetailActivity.class);
         context.startActivity(intent);
     }
 

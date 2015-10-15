@@ -9,57 +9,55 @@ import android.widget.TextView;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 import com.example.germangirod.rxjavaexample.R;
-import com.example.germangirod.rxjavaexample.api.model.CurrentWeather;
+import com.example.germangirod.rxjavaexample.api.model.WeatherResponse;
 import java.util.List;
 
 /**
  * Created by germangirod on 5/23/15.
  */
-public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.WeatherRowHolder> {
+public class WeatherListAdapter extends RecyclerView.Adapter<WeatherListAdapter.WeatherRowHolder> {
 
     private Context context;
-    private List<CurrentWeather> currentWeathers;
+    private List<WeatherResponse> currentWeathers;
     private onRowClick onRowClick;
 
-    public HomeAdapter(Context context, List<CurrentWeather> currentWeathers) {
+    public WeatherListAdapter(Context context, List<WeatherResponse> currentWeathers) {
 
         this.context = context;
         this.currentWeathers = currentWeathers;
     }
 
-    public void setRowClick(onRowClick onRowClick){
-        this.onRowClick=onRowClick;
+    public void setRowClick(onRowClick onRowClick) {
+        this.onRowClick = onRowClick;
     }
 
     @Override public WeatherRowHolder onCreateViewHolder(ViewGroup viewGroup, final int i) {
         View v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item_weather_row, viewGroup, false);
         WeatherRowHolder weatherRowHolder = new WeatherRowHolder(v);
 
-
-
-
         return weatherRowHolder;
     }
 
     @Override public void onBindViewHolder(WeatherRowHolder weatherRowHolder, int i) {
 
-        CurrentWeather currentWeather= currentWeathers.get(i);
+        WeatherResponse weatherResponse = currentWeathers.get(i);
 
-        weatherRowHolder.stationDistance.setText(currentWeather.getDistance().toString());
-        weatherRowHolder.stationName.setText(currentWeather.getStation().getName());
-
-
-
+        weatherRowHolder.stationName.setText(String.valueOf(weatherResponse.getId()));
+        weatherRowHolder.stationDistance.setText(weatherResponse.getName());
     }
 
     @Override public int getItemCount() {
         return currentWeathers.size();
     }
 
-    public class WeatherRowHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
+    public interface onRowClick {
+        void clickWeatherRow(View v, int i);
+    }
 
-        @InjectView(R.id.station_name) TextView stationName;
+    public class WeatherRowHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+
         @InjectView(R.id.station_distance) TextView stationDistance;
+        @InjectView(R.id.station_name) TextView stationName;
 
         public WeatherRowHolder(View itemView) {
             super(itemView);
@@ -68,11 +66,7 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.WeatherRowHold
         }
 
         @Override public void onClick(View v) {
-            onRowClick.clickWeatherRow(v,getPosition());
+            onRowClick.clickWeatherRow(v, getPosition());
         }
-    }
-
-    public interface onRowClick{
-        public void clickWeatherRow(View v, int i);
     }
 }

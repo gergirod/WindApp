@@ -1,38 +1,29 @@
 package com.example.germangirod.rxjavaexample.api.model;
 
-import com.google.gson.annotations.SerializedName;
+import java.util.List;
 
 /**
  * Created by germangirod on 5/15/15.
  */
 public class CurrentWeather {
 
-    private Station station;
-    private Double distance;
-    @SerializedName("last")
-    private WeatherResponse weatherResponse;
+    private int cnt;
+    private List<WeatherResponse> list;
 
-    public Station getStation() {
-        return station;
+
+    public int getCount() {
+        return cnt;
     }
 
-    public void setStation(Station station) {
-        this.station = station;
+    public void setCount(int cnt) {
+        this.cnt = cnt;
     }
 
-    public Double getDistance() {
-        return distance;
+    public List<WeatherResponse> getWeatherResponse() {
+        return list;
     }
 
-    public void setDistance(Double distance) {
-        this.distance = distance;
-    }
-
-    public WeatherResponse getWeatherResponse() {
-        return weatherResponse;
-    }
-
-    public void setWeatherResponse(WeatherResponse weatherResponse) {
-        this.weatherResponse = weatherResponse;
+    public void setWeatherResponse(List<WeatherResponse> weatherResponse) {
+        this.list = weatherResponse;
     }
 }
