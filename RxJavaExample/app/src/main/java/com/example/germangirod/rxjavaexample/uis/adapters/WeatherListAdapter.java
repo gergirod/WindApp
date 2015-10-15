@@ -1,4 +1,4 @@
-package com.example.germangirod.rxjavaexample.uis;
+package com.example.germangirod.rxjavaexample.uis.adapters;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;

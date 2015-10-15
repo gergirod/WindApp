@@ -1,4 +1,4 @@
-package com.example.germangirod.rxjavaexample.uis;
+package com.example.germangirod.rxjavaexample.uis.fragments;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -18,6 +18,7 @@ import com.example.germangirod.rxjavaexample.api.WeatherForecastLocationApi;
 import com.example.germangirod.rxjavaexample.api.model.CurrentWeather;
 import com.example.germangirod.rxjavaexample.api.presenters.MyLocationsCurrentWeatherData;
 import com.example.germangirod.rxjavaexample.api.presenters.MyLocationsCurrentWeatherPresenter;
+import com.example.germangirod.rxjavaexample.uis.adapters.WeatherListAdapter;
 
 /**
  * Created by germangirod on 5/13/15.

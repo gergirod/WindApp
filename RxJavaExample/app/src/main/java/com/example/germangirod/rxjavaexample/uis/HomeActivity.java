@@ -8,8 +8,8 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
-import com.example.germangirod.rxjavaexample.BaseActivity;
 import com.example.germangirod.rxjavaexample.R;
+import com.example.germangirod.rxjavaexample.uis.adapters.HomePagerAdapter;
 
 /**
  * Created by germangirod on 5/13/15.

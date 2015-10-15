@@ -1,4 +1,4 @@
-package com.example.germangirod.rxjavaexample.uis;
+package com.example.germangirod.rxjavaexample.uis.fragments;
 
 import android.location.Location;
 import android.os.Bundle;

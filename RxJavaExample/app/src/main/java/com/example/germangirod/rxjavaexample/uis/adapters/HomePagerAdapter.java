@@ -1,9 +1,11 @@
-package com.example.germangirod.rxjavaexample.uis;
+package com.example.germangirod.rxjavaexample.uis.adapters;
 
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
+import com.example.germangirod.rxjavaexample.uis.fragments.CurrentLocationWeatherFragment;
+import com.example.germangirod.rxjavaexample.uis.fragments.MyLocationsWeatherFragment;
 
 /**
  * Created by germangirod on 10/15/15.

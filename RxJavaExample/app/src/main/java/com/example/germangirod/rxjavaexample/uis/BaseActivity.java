@@ -1,9 +1,10 @@
-package com.example.germangirod.rxjavaexample;
+package com.example.germangirod.rxjavaexample.uis;
 
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
+import com.example.germangirod.rxjavaexample.R;
 
 /**
  * Created by germangirod on 5/15/15.
