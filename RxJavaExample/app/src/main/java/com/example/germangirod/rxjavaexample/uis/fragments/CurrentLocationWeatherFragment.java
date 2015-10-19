@@ -19,12 +19,13 @@ import com.example.germangirod.rxjavaexample.uis.ForecastActivity;
 /**
  * Created by germangirod on 5/13/15.
  */
-public class CurrentLocationWeatherFragment extends LocationBaseFragment implements LocationCurrentWeatherDataPresenter {
+public class CurrentLocationWeatherFragment extends LocationBaseFragment implements LocationCurrentWeatherDataPresenter, View.OnClickListener {
 
     private LocationCurrentWeatherData locationCurrentWeatherData;
     private Location auxLocation;
     @InjectView(R.id.card_view) CardView cardView;
 
+    private WeatherResponse currentWeather;
     public static Fragment getInstance() {
         CurrentLocationWeatherFragment f = new CurrentLocationWeatherFragment();
         return f;
@@ -34,11 +35,7 @@ public class CurrentLocationWeatherFragment extends LocationBaseFragment impleme
         View v = inflater.inflate(R.layout.current_location_fragment, container, false);
         ButterKnife.inject(this, v);
 
-        cardView.setOnClickListener(new View.OnClickListener() {
-            @Override public void onClick(View v) {
-                ForecastActivity.goTo(getActivity(), "123");
-            }
-        });
+        cardView.setOnClickListener(this);
 
         return v;
     }
@@ -68,10 +65,16 @@ public class CurrentLocationWeatherFragment extends LocationBaseFragment impleme
     }
 
     @Override public void getCurrentWeather(WeatherResponse currentWeathers) {
-        //Todo show data in the card
+        currentWeather = currentWeathers;
     }
 
     @Override public void onError(Throwable throwable) {
-        
+
+    }
+
+    @Override public void onClick(View v) {
+        if(currentWeather!=null){
+            ForecastActivity.goTo(getActivity(), String.valueOf(currentWeather.getId()));
+        }
     }
 }
