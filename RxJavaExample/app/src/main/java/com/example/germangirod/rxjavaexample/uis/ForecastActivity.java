@@ -16,20 +16,20 @@ import com.example.germangirod.rxjavaexample.uis.fragments.LocationWeatherForeca
  */
 public class ForecastActivity extends BaseActivity {
 
-    private int place_id;
     @InjectView(R.id.toolbar) Toolbar toolbar;
+    private int place_id;
     private FragmentTransaction fragmentTransaction;
+    private String cityId;
 
-    @Override public int getLayoutId() {
-        return R.layout.forecast_activity;
-    }
-
-    public static void goTo(Context context, String placeId){
+    public static void goTo(Context context, String placeId) {
 
         Intent intent = new Intent(context, ForecastActivity.class);
         intent.putExtra("place_id", placeId);
         context.startActivity(intent);
+    }
 
+    @Override public int getLayoutId() {
+        return R.layout.forecast_activity;
     }
 
     @Override protected void onCreate(Bundle savedInstanceState) {
@@ -37,13 +37,19 @@ public class ForecastActivity extends BaseActivity {
 
         ButterKnife.inject(this);
         setToolbar();
+        getCityId();
         setFragment();
     }
 
-    private void setFragment(){
+    private void getCityId() {
+        Bundle bundle = getIntent().getExtras();
+        cityId = bundle.getString("place_id");
+    }
+
+    private void setFragment() {
         fragmentTransaction = getSupportFragmentManager().beginTransaction();
-               fragmentTransaction.replace(R.id.main_content, LocationWeatherForecastFragment.getInstance("123"));
-                fragmentTransaction.commit();
+        fragmentTransaction.replace(R.id.main_content, LocationWeatherForecastFragment.getInstance(cityId));
+        fragmentTransaction.commit();
     }
 
     private void setToolbar() {

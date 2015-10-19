@@ -12,16 +12,21 @@ import android.widget.ProgressBar;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 import com.example.germangirod.rxjavaexample.R;
+import com.example.germangirod.rxjavaexample.api.model.Forecast;
+import com.example.germangirod.rxjavaexample.api.presenters.ForecastPresenter;
+import com.example.germangirod.rxjavaexample.api.presenters.ForecastWeatherData;
 
 /**
  * Created by germangirod on 10/19/15.
  */
-public class LocationWeatherForecastFragment extends Fragment {
+public class LocationWeatherForecastFragment extends Fragment implements ForecastPresenter {
 
     @InjectView(R.id.my_recycler_view) RecyclerView recyclerView;
     @InjectView(R.id.loading) ProgressBar loading;
+    private ForecastWeatherData forecastWeatherData;
+    private String cityId;
 
-    public static Fragment getInstance(String placeId){
+    public static Fragment getInstance(String placeId) {
 
         Fragment locationWeatherForecastFragment = new LocationWeatherForecastFragment();
 
@@ -37,14 +42,33 @@ public class LocationWeatherForecastFragment extends Fragment {
         ButterKnife.inject(this, v);
 
         Bundle arguments = getArguments();
-        if(arguments != null)
-        {
-            //handleArguments(arguments);
+        if (arguments != null) {
+            cityId = arguments.getString("place_id");
         }
 
-        recyclerView.setHasFixedSize(true);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        prepareList();
+        getForecast(cityId);
 
         return v;
+    }
+
+    private void prepareList() {
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+    }
+
+    private void getForecast(String cityId) {
+
+        forecastWeatherData = new ForecastWeatherData();
+        forecastWeatherData.setView(this);
+        forecastWeatherData.getForecastByCityId(cityId);
+    }
+
+    @Override public void getForecastByCityId(Forecast forecast) {
+
+    }
+
+    @Override public void onError(Throwable throwable) {
+
     }
 }

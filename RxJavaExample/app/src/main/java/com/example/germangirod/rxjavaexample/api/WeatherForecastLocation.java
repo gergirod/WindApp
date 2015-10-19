@@ -1,6 +1,7 @@
 package com.example.germangirod.rxjavaexample.api;
 
 import com.example.germangirod.rxjavaexample.api.model.CurrentWeather;
+import com.example.germangirod.rxjavaexample.api.model.Forecast;
 import com.example.germangirod.rxjavaexample.api.model.WeatherResponse;
 import rx.Observable;
 
@@ -13,4 +14,5 @@ public interface WeatherForecastLocation {
 
     Observable<WeatherResponse> getLocationCurrentWeather(String lat, String lng);
 
+    Observable<Forecast> getForecastByCityId(String cityId);
 }

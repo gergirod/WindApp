@@ -2,6 +2,7 @@ package com.example.germangirod.rxjavaexample.api;
 
 import com.example.germangirod.rxjavaexample.BuildConfig;
 import com.example.germangirod.rxjavaexample.api.model.CurrentWeather;
+import com.example.germangirod.rxjavaexample.api.model.Forecast;
 import com.example.germangirod.rxjavaexample.api.model.WeatherResponse;
 import rx.Observable;
 
@@ -16,5 +17,9 @@ public class WeatherForecastLocationApi implements WeatherForecastLocation {
 
     @Override public Observable<WeatherResponse> getLocationCurrentWeather(String lat, String lng) {
         return RestClient.get().getWeatherByCoordinates(lat, lng, BuildConfig.APP_KEY);
+    }
+
+    @Override public Observable<Forecast> getForecastByCityId(String cityId) {
+        return RestClient.get().getCityForecastById(cityId, BuildConfig.APP_KEY);
     }
 }

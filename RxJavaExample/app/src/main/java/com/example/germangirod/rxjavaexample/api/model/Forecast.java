@@ -11,7 +11,7 @@ public class Forecast {
     private Double message;
     private City city;
     private int cnt;
-    private List<WeatherResponse> weatherResponses;
+    private List<WeatherResponse> list;
 
     public int getCod() {
         return cod;
@@ -46,10 +46,10 @@ public class Forecast {
     }
 
     public List<WeatherResponse> getWeatherResponses() {
-        return weatherResponses;
+        return list;
     }
 
     public void setWeatherResponses(List<WeatherResponse> weatherResponses) {
-        this.weatherResponses = weatherResponses;
+        this.list = weatherResponses;
     }
 }
