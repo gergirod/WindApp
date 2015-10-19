@@ -18,6 +18,7 @@ import com.example.germangirod.rxjavaexample.api.WeatherForecastLocationApi;
 import com.example.germangirod.rxjavaexample.api.model.CurrentWeather;
 import com.example.germangirod.rxjavaexample.api.presenters.MyLocationsCurrentWeatherData;
 import com.example.germangirod.rxjavaexample.api.presenters.MyLocationsCurrentWeatherPresenter;
+import com.example.germangirod.rxjavaexample.uis.ForecastActivity;
 import com.example.germangirod.rxjavaexample.uis.adapters.WeatherListAdapter;
 
 /**
@@ -37,7 +38,7 @@ public class MyLocationsWeatherFragment extends Fragment implements MyLocationsC
     }
 
     @Override public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.fragment_home, container, false);
+        View v = inflater.inflate(R.layout.fragment_list, container, false);
         ButterKnife.inject(this, v);
         api = new WeatherForecastLocationApi();
 
@@ -63,7 +64,7 @@ public class MyLocationsWeatherFragment extends Fragment implements MyLocationsC
 
         weatherListAdapter.setRowClick(new WeatherListAdapter.onRowClick() {
             @Override public void clickWeatherRow(View v, int i) {
-
+                ForecastActivity.goTo(getActivity(), "123");
             }
         });
     }

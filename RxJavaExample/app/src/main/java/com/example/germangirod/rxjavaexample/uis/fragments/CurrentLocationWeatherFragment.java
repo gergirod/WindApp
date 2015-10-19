@@ -4,15 +4,17 @@ import android.location.Location;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.util.Log;
+import android.support.v7.widget.CardView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import butterknife.ButterKnife;
+import butterknife.InjectView;
 import com.example.germangirod.rxjavaexample.R;
 import com.example.germangirod.rxjavaexample.api.model.WeatherResponse;
 import com.example.germangirod.rxjavaexample.api.presenters.LocationCurrentWeatherData;
 import com.example.germangirod.rxjavaexample.api.presenters.LocationCurrentWeatherDataPresenter;
+import com.example.germangirod.rxjavaexample.uis.ForecastActivity;
 
 /**
  * Created by germangirod on 5/13/15.
@@ -21,6 +23,7 @@ public class CurrentLocationWeatherFragment extends LocationBaseFragment impleme
 
     private LocationCurrentWeatherData locationCurrentWeatherData;
     private Location auxLocation;
+    @InjectView(R.id.card_view) CardView cardView;
 
     public static Fragment getInstance() {
         CurrentLocationWeatherFragment f = new CurrentLocationWeatherFragment();
@@ -30,6 +33,12 @@ public class CurrentLocationWeatherFragment extends LocationBaseFragment impleme
     @Override public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.current_location_fragment, container, false);
         ButterKnife.inject(this, v);
+
+        cardView.setOnClickListener(new View.OnClickListener() {
+            @Override public void onClick(View v) {
+                ForecastActivity.goTo(getActivity(), "123");
+            }
+        });
 
         return v;
     }
@@ -63,6 +72,6 @@ public class CurrentLocationWeatherFragment extends LocationBaseFragment impleme
     }
 
     @Override public void onError(Throwable throwable) {
-        Log.e("mirar esto ","mirar esto con locations"+throwable);
+        
     }
 }

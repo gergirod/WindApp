@@ -20,14 +20,13 @@ public class HomeActivity extends BaseActivity {
     @InjectView(R.id.pager) ViewPager viewPager;
 
     private HomePagerAdapter homePagerAdapter;
-    private String[] tableName = {"Current Location Weather","My Locations Weather"};
+    private String[] tableName = { "Current Location Weather", "My Locations Weather" };
 
     @Override public int getLayoutId() {
         return R.layout.activity_home;
     }
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    @Override protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         ButterKnife.inject(this);
@@ -35,43 +34,39 @@ public class HomeActivity extends BaseActivity {
         setTableLayoutTabs();
         setViewPager();
         setTabLayoutOnSelect();
-
     }
 
-    private void setTableLayoutTabs(){
+    private void setTableLayoutTabs() {
 
-        for(int i=0; i<tableName.length; i++){
+        for (int i = 0; i < tableName.length; i++) {
 
             tabLayout.addTab(tabLayout.newTab().setText(tableName[i]));
-
         }
 
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
     }
 
-    private void setViewPager(){
+    private void setViewPager() {
         homePagerAdapter = new HomePagerAdapter(getSupportFragmentManager());
         viewPager.setAdapter(homePagerAdapter);
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
     }
 
-    private void setTabLayoutOnSelect(){
+    private void setTabLayoutOnSelect() {
         tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override public void onTabSelected(TabLayout.Tab tab) {
                 viewPager.setCurrentItem(tab.getPosition());
             }
 
             @Override public void onTabUnselected(TabLayout.Tab tab) {
-
             }
 
             @Override public void onTabReselected(TabLayout.Tab tab) {
-
             }
         });
     }
 
-    private void setToolbar(){
+    private void setToolbar() {
         setSupportActionBar(toolbar);
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".MainActivity"
+        >
+    <include
+            layout="@layout/toolbar"
+            android:id="@+id/toolbar_layout"
+            ></include>
+    <View
+            android:layout_width="match_parent"
+            android:layout_height="4dp"
+            android:background="@drawable/shadow"
+            android:layout_below="@id/toolbar_layout"
+            android:id="@+id/shadow_id"
+            />
+    <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/main_content"
+            android:layout_below="@id/shadow_id"
+            ></FrameLayout>
+</RelativeLayout>

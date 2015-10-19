@@ -24,6 +24,10 @@
                 android:name=".uis.WeatherDetailActivity"
                 android:label="@string/app_name" >
         </activity>
+        <activity
+                android:name=".uis.ForecastActivity"
+                android:label="@string/app_name" >
+        </activity>
     </application>
 
 </manifest>
