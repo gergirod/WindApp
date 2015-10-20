@@ -41,15 +41,18 @@ public class LocationWeatherForecastFragment extends Fragment implements Forecas
         View v = inflater.inflate(R.layout.fragment_list, container, false);
         ButterKnife.inject(this, v);
 
-        Bundle arguments = getArguments();
-        if (arguments != null) {
-            cityId = arguments.getString("place_id");
-        }
-
+        getBundleData();
         prepareList();
         getForecast(cityId);
 
         return v;
+    }
+
+    private void getBundleData() {
+        Bundle arguments = getArguments();
+        if (arguments != null) {
+            cityId = arguments.getString("place_id");
+        }
     }
 
     private void prepareList() {
@@ -65,10 +68,10 @@ public class LocationWeatherForecastFragment extends Fragment implements Forecas
     }
 
     @Override public void getForecastByCityId(Forecast forecast) {
-
+        loading.setVisibility(View.GONE);
     }
 
     @Override public void onError(Throwable throwable) {
-
+        loading.setVisibility(View.GONE);
     }
 }

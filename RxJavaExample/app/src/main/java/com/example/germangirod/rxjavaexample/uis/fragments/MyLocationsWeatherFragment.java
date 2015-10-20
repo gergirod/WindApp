@@ -5,7 +5,6 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -64,12 +63,12 @@ public class MyLocationsWeatherFragment extends Fragment implements MyLocationsC
 
         weatherListAdapter.setRowClick(new WeatherListAdapter.onRowClick() {
             @Override public void clickWeatherRow(View v, int i) {
-                ForecastActivity.goTo(getActivity(), "123");
+                ForecastActivity.goTo(getActivity(), String.valueOf(currentWeathers.getWeatherResponse().get(i).getId()));
             }
         });
     }
 
     @Override public void onError(Throwable throwable) {
-        Log.e("mirar esto ","mirar esto mi lista "+throwable);
+        loading.setVisibility(View.GONE);
     }
 }

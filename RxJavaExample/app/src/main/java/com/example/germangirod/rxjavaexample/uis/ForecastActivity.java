@@ -17,7 +17,6 @@ import com.example.germangirod.rxjavaexample.uis.fragments.LocationWeatherForeca
 public class ForecastActivity extends BaseActivity {
 
     @InjectView(R.id.toolbar) Toolbar toolbar;
-    private int place_id;
     private FragmentTransaction fragmentTransaction;
     private String cityId;
 
