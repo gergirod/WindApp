@@ -7,23 +7,14 @@ import java.util.List;
  */
 public class CurrentWeather {
 
-    private int cnt;
-    private List<WeatherResponse> list;
-
+    public int cnt;
+    public List<WeatherResponse> list;
 
     public int getCount() {
         return cnt;
     }
 
-    public void setCount(int cnt) {
-        this.cnt = cnt;
-    }
-
     public List<WeatherResponse> getWeatherResponse() {
         return list;
-    }
-
-    public void setWeatherResponse(List<WeatherResponse> weatherResponse) {
-        this.list = weatherResponse;
     }
 }

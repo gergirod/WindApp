@@ -7,13 +7,9 @@ import com.google.gson.annotations.SerializedName;
  */
 public class Rain {
 
-    @SerializedName("3h") private float value;
+    @SerializedName("3h") public float value;
 
     public float getValue() {
         return value;
-    }
-
-    public void setValue(float value) {
-        this.value = value;
     }
 }

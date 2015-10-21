@@ -5,22 +5,18 @@ package com.example.germangirod.rxjavaexample.api.model;
  */
 public class Wind {
 
-    private Double speed;
-    private Double deg;
+    public Double speed;
+    public Double deg;
 
     public Double getSpeed() {
-        return speed;
-    }
-
-    public void setSpeed(Double speed) {
-        this.speed = speed;
+        return minutesPerSecondToKnots();
     }
 
     public Double getDeg() {
         return deg;
     }
 
-    public void setDeg(Double deg) {
-        this.deg = deg;
+    private Double minutesPerSecondToKnots(){
+        return speed * 1.943844 ;
     }
 }

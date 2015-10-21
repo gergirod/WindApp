@@ -7,13 +7,9 @@ import java.util.List;
  */
 public class a {
 
-    private List<CurrentWeather> currentWeathers;
+    public List<CurrentWeather> currentWeathers;
 
     public List<CurrentWeather> getCurrentWeathers() {
         return currentWeathers;
-    }
-
-    public void setCurrentWeathers(List<CurrentWeather> currentWeathers) {
-        this.currentWeathers = currentWeathers;
     }
 }
