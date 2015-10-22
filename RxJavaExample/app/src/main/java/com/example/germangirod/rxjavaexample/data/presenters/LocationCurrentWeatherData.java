@@ -1,8 +1,8 @@
-package com.example.germangirod.rxjavaexample.api.presenters;
+package com.example.germangirod.rxjavaexample.data.presenters;
 
-import com.example.germangirod.rxjavaexample.api.WeatherForecastLocation;
-import com.example.germangirod.rxjavaexample.api.WeatherForecastLocationApi;
-import com.example.germangirod.rxjavaexample.api.model.WeatherResponse;
+import com.example.germangirod.rxjavaexample.data.api.WeatherForecastLocation;
+import com.example.germangirod.rxjavaexample.data.api.WeatherForecastLocationApi;
+import com.example.germangirod.rxjavaexample.data.model.WeatherResponse;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action1;
 import rx.schedulers.Schedulers;

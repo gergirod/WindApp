@@ -1,4 +1,4 @@
-package com.example.germangirod.rxjavaexample.api.model;
+package com.example.germangirod.rxjavaexample.data.model;
 
 /**
  * Created by germangirod on 5/15/15.

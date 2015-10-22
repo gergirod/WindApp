@@ -12,9 +12,9 @@ import android.widget.ProgressBar;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 import com.example.germangirod.rxjavaexample.R;
-import com.example.germangirod.rxjavaexample.api.model.Forecast;
-import com.example.germangirod.rxjavaexample.api.presenters.ForecastPresenter;
-import com.example.germangirod.rxjavaexample.api.presenters.ForecastWeatherData;
+import com.example.germangirod.rxjavaexample.data.model.Forecast;
+import com.example.germangirod.rxjavaexample.data.presenters.ForecastPresenter;
+import com.example.germangirod.rxjavaexample.data.presenters.ForecastWeatherData;
 import com.example.germangirod.rxjavaexample.uis.adapters.ForecastListAdapter;
 
 /**

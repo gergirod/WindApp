@@ -1,6 +1,6 @@
-package com.example.germangirod.rxjavaexample.api.presenters;
+package com.example.germangirod.rxjavaexample.data.presenters;
 
-import com.example.germangirod.rxjavaexample.api.model.CurrentWeather;
+import com.example.germangirod.rxjavaexample.data.model.CurrentWeather;
 
 /**
  * Created by germangirod on 10/7/15.

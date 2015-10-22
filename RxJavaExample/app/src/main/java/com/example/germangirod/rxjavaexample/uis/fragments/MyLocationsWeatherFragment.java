@@ -12,11 +12,11 @@ import android.widget.ProgressBar;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 import com.example.germangirod.rxjavaexample.R;
-import com.example.germangirod.rxjavaexample.api.WeatherForecastLocation;
-import com.example.germangirod.rxjavaexample.api.WeatherForecastLocationApi;
-import com.example.germangirod.rxjavaexample.api.model.CurrentWeather;
-import com.example.germangirod.rxjavaexample.api.presenters.MyLocationsCurrentWeatherData;
-import com.example.germangirod.rxjavaexample.api.presenters.MyLocationsCurrentWeatherPresenter;
+import com.example.germangirod.rxjavaexample.data.api.WeatherForecastLocation;
+import com.example.germangirod.rxjavaexample.data.api.WeatherForecastLocationApi;
+import com.example.germangirod.rxjavaexample.data.model.CurrentWeather;
+import com.example.germangirod.rxjavaexample.data.presenters.MyLocationsCurrentWeatherData;
+import com.example.germangirod.rxjavaexample.data.presenters.MyLocationsCurrentWeatherPresenter;
 import com.example.germangirod.rxjavaexample.uis.ForecastActivity;
 import com.example.germangirod.rxjavaexample.uis.adapters.WeatherListAdapter;
 
