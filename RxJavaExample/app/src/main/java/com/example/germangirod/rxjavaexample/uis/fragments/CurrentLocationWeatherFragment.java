@@ -8,6 +8,7 @@ import android.support.v7.widget.CardView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 import com.example.germangirod.rxjavaexample.R;
@@ -24,6 +25,7 @@ public class CurrentLocationWeatherFragment extends LocationBaseFragment impleme
     private LocationCurrentWeatherData locationCurrentWeatherData;
     private Location auxLocation;
     @InjectView(R.id.card_view) CardView cardView;
+    @InjectView(R.id.station_name) TextView cityName;
 
     private WeatherResponse currentWeather;
     public static Fragment getInstance() {
@@ -66,6 +68,7 @@ public class CurrentLocationWeatherFragment extends LocationBaseFragment impleme
 
     @Override public void getCurrentWeather(WeatherResponse currentWeathers) {
         currentWeather = currentWeathers;
+        cityName.setText(currentWeather.getName());
     }
 
     @Override public void onError(Throwable throwable) {

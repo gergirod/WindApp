@@ -15,6 +15,7 @@ import com.example.germangirod.rxjavaexample.R;
 import com.example.germangirod.rxjavaexample.api.model.Forecast;
 import com.example.germangirod.rxjavaexample.api.presenters.ForecastPresenter;
 import com.example.germangirod.rxjavaexample.api.presenters.ForecastWeatherData;
+import com.example.germangirod.rxjavaexample.uis.adapters.ForecastListAdapter;
 
 /**
  * Created by germangirod on 10/19/15.
@@ -25,6 +26,7 @@ public class LocationWeatherForecastFragment extends Fragment implements Forecas
     @InjectView(R.id.loading) ProgressBar loading;
     private ForecastWeatherData forecastWeatherData;
     private String cityId;
+    private ForecastListAdapter forecastListAdapter;
 
     public static Fragment getInstance(String placeId) {
 
@@ -68,6 +70,8 @@ public class LocationWeatherForecastFragment extends Fragment implements Forecas
     }
 
     @Override public void getForecastByCityId(Forecast forecast) {
+        forecastListAdapter = new ForecastListAdapter(getActivity(), forecast.getWeatherResponses());
+        recyclerView.setAdapter(forecastListAdapter);
         loading.setVisibility(View.GONE);
     }
 

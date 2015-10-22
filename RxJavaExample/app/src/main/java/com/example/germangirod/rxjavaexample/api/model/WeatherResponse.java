@@ -14,10 +14,11 @@ public class WeatherResponse {
     public Wind wind;
     public Rain rain;
     public Clouds clouds;
-    public int dt;
+    public long dt;
     public int id;
     public String name;
     public int cod;
+    public String dt_txt;
 
     public Coords getCoords() {
         return coords;
@@ -39,7 +40,7 @@ public class WeatherResponse {
         return rain;
     }
 
-    public int getDt() {
+    public long getDt() {
         return dt;
     }
 
@@ -61,5 +62,9 @@ public class WeatherResponse {
 
     public Clouds getClouds() {
         return clouds;
+    }
+
+    public String getDt_txt() {
+        return dt_txt;
     }
 }
