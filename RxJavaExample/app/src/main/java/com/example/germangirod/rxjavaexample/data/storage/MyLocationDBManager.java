@@ -62,4 +62,17 @@ public class MyLocationDBManager extends SQLiteOpenHelper {
 
         return null;
     }
+
+    public boolean isSaved(String cityId) {
+        int city = 0;
+        sqLiteDatabase = getReadableDatabase();
+        if (sqLiteDatabase != null) {
+            city = LocationContract.isSaved(cityId, sqLiteDatabase);
+        }
+
+        if (city == 0) {
+            return false;
+        }
+        return true;
+    }
 }

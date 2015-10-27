@@ -54,6 +54,20 @@ public abstract class LocationContract {
         return citiesIds;
     }
 
+    static int isSaved(String cityId, SQLiteDatabase sqLiteDatabase) {
+        String[] columns = { LocationEntry.COL_CITY_ID };
+        String where = LocationEntry.COL_CITY_ID + " =?";
+        String[] selection = new String[] { cityId };
+
+        Cursor cursor = sqLiteDatabase.query(LocationEntry.TABLE_NAME, columns, where, selection, null, null, null);
+        int city = 0;
+        while (cursor.moveToNext()) {
+            city = cursor.getInt(cursor.getColumnIndex(LocationEntry.COL_CITY_ID));
+        }
+
+        return city;
+    }
+
     public static abstract class LocationEntry implements BaseColumns {
 
         public static final String TABLE_NAME = "city";
