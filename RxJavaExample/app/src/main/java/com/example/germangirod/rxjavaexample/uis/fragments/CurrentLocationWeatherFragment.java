@@ -12,9 +12,9 @@ import android.widget.TextView;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 import com.example.germangirod.rxjavaexample.R;
-import com.example.germangirod.rxjavaexample.api.model.WeatherResponse;
-import com.example.germangirod.rxjavaexample.api.presenters.LocationCurrentWeatherData;
-import com.example.germangirod.rxjavaexample.api.presenters.LocationCurrentWeatherDataPresenter;
+import com.example.germangirod.rxjavaexample.data.model.WeatherResponse;
+import com.example.germangirod.rxjavaexample.data.presenters.LocationCurrentWeatherData;
+import com.example.germangirod.rxjavaexample.data.presenters.LocationCurrentWeatherDataPresenter;
 import com.example.germangirod.rxjavaexample.uis.ForecastActivity;
 
 /**

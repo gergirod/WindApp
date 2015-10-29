@@ -1,8 +1,8 @@
-package com.example.germangirod.rxjavaexample.api;
+package com.example.germangirod.rxjavaexample.data.api;
 
-import com.example.germangirod.rxjavaexample.api.model.CurrentWeather;
-import com.example.germangirod.rxjavaexample.api.model.Forecast;
-import com.example.germangirod.rxjavaexample.api.model.WeatherResponse;
+import com.example.germangirod.rxjavaexample.data.model.CurrentWeather;
+import com.example.germangirod.rxjavaexample.data.model.Forecast;
+import com.example.germangirod.rxjavaexample.data.model.WeatherResponse;
 import java.util.List;
 import retrofit.http.GET;
 import retrofit.http.Query;

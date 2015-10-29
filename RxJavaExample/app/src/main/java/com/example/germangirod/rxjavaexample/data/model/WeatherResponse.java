@@ -1,4 +1,4 @@
-package com.example.germangirod.rxjavaexample.api.model;
+package com.example.germangirod.rxjavaexample.data.model;
 
 import java.util.List;
 

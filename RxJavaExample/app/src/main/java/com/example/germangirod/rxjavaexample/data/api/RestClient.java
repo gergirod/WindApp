@@ -1,4 +1,4 @@
-package com.example.germangirod.rxjavaexample.api;
+package com.example.germangirod.rxjavaexample.data.api;
 
 import com.squareup.okhttp.OkHttpClient;
 import retrofit.RestAdapter;
