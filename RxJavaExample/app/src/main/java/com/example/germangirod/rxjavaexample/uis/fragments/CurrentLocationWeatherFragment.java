@@ -8,6 +8,7 @@ import android.support.v7.widget.CardView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
@@ -16,6 +17,7 @@ import com.example.germangirod.rxjavaexample.data.model.WeatherResponse;
 import com.example.germangirod.rxjavaexample.data.presenters.LocationCurrentWeatherData;
 import com.example.germangirod.rxjavaexample.data.presenters.LocationCurrentWeatherDataPresenter;
 import com.example.germangirod.rxjavaexample.uis.ForecastActivity;
+import com.example.germangirod.rxjavaexample.uis.widget.ArrowView;
 
 /**
  * Created by germangirod on 5/13/15.
@@ -25,7 +27,15 @@ public class CurrentLocationWeatherFragment extends LocationBaseFragment impleme
     private LocationCurrentWeatherData locationCurrentWeatherData;
     private Location auxLocation;
     @InjectView(R.id.card_view) CardView cardView;
-    @InjectView(R.id.station_name) TextView cityName;
+    @InjectView(R.id.city_name) TextView cityName;
+    @InjectView(R.id.arrow_wind) ArrowView arrowWind;
+    @InjectView(R.id.wind_speed) TextView windSpeed;
+    @InjectView(R.id.wind_dg) TextView windDg;
+    @InjectView(R.id.weather_image) ImageView weatherImage;
+    @InjectView(R.id.temperature) TextView temperature;
+    @InjectView(R.id.pressure) TextView pressure;
+    @InjectView(R.id.humidity) TextView humidity;
+    @InjectView(R.id.date) TextView date;
 
     private WeatherResponse currentWeather;
     public static Fragment getInstance() {
@@ -69,9 +79,56 @@ public class CurrentLocationWeatherFragment extends LocationBaseFragment impleme
     @Override public void getCurrentWeather(WeatherResponse currentWeathers) {
         currentWeather = currentWeathers;
         cityName.setText(currentWeather.getName());
+        arrowWind.setVisibility(View.VISIBLE);
+        arrowWind.setImageResource(R.drawable.arrow);
+        arrowWind.setAngleRotation(currentWeathers.getWind().getDeg());
+        windSpeed.setText(currentWeather.getWind().getSpeed());
+        windDg.setText(currentWeather.getWind().degToString());
+        pressure.setText("Press: "+currentWeather.getMain().getPressure());
+        humidity.setText("Hum: "+currentWeather.getMain().getHumidity());
+        temperature.setText("Temp: "+currentWeather.getMain().getTemp());
+        date.setText(currentWeather.getFullDate());
+
+        setTextAndBackgroundColors(currentWeathers.isDay());
+        setWeatherImage(currentWeathers);
+
+
     }
 
     @Override public void onError(Throwable throwable) {
+
+
+    }
+
+    private void setTextAndBackgroundColors(boolean isDay){
+        if(!isDay){
+            cityName.setTextColor(getResources().getColor(R.color.white));
+            windSpeed.setTextColor(getResources().getColor(R.color.white));
+            windDg.setTextColor(getResources().getColor(R.color.white));
+            cardView.setBackgroundColor(getResources().getColor(R.color.black));
+            pressure.setTextColor(getResources().getColor(R.color.white));
+            temperature.setTextColor(getResources().getColor(R.color.white));
+            humidity.setTextColor(getResources().getColor(R.color.white));
+        }
+    }
+
+    private void setWeatherImage(WeatherResponse weatherResponse){
+
+        if(weatherResponse.isDay()){
+            if(weatherResponse.getClouds().all==0) {
+                weatherImage.setImageResource(R.drawable.sunny);
+            }
+            if(weatherResponse.getClouds().all>0 && weatherResponse.getClouds().all<=50){
+                weatherImage.setImageResource(R.drawable.mostly_cloudy);
+            }
+        }
+        if(weatherResponse.getClouds().all>50 ){
+            weatherImage.setImageResource(R.drawable.cloudy);
+        }
+
+        if(weatherResponse.getRain()!=null){
+           weatherImage.setImageResource(R.drawable.drizzle);
+        }
 
     }
 

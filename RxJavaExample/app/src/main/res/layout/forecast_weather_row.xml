@@ -19,24 +19,24 @@
                 android:layout_margin="7dp"
                 >
 
-            <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:layout_alignParentLeft="true"
-                    android:id="@+id/city_container"
-                    android:layout_marginBottom="10dp"
-                    >
-                <TextView
+                <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:id="@+id/city"
-                        android:textSize="15dp"
-                        android:textColor="@android:color/black"
-                        android:textStyle="bold"
+                        android:orientation="vertical"
+                        android:layout_alignParentLeft="true"
+                        android:id="@+id/day_container"
+                        android:layout_marginBottom="10dp"
+                        >
+                        <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:id="@+id/day"
+                                android:textSize="15dp"
+                                android:textColor="@android:color/black"
+                                android:textStyle="bold"
 
-                        />
-            </LinearLayout>
+                                />
+                </LinearLayout>
             <com.example.germangirod.rxjavaexample.uis.widget.ArrowView
                     android:layout_width="60dp"
                     android:layout_height="60dp"
@@ -44,8 +44,26 @@
                     android:id="@+id/arrow_wind"
                     android:visibility="visible"
                     android:layout_alignParentLeft="true"
-                    android:layout_below="@id/city_container"
+                    android:layout_below="@id/day_container"
                     />
+            <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="7dp"
+                    android:id="@+id/hour_container"
+                    android:layout_marginBottom="7dp"
+                    >
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/hours"
+                        android:textSize="15dp"
+                        android:textColor="@android:color/black"
+                        android:textStyle="bold"
+                        />
+            </LinearLayout>
             <ImageView
                     android:layout_width="50dp"
                     android:layout_height="50dp"
@@ -54,7 +72,7 @@
                     android:layout_alignParentRight="true"
                     android:layout_toLeftOf="@id/weather_image"
                     android:layout_marginBottom="-8dp"
-                    android:layout_marginTop="20dp"
+                    android:layout_below="@id/hour_container"
                     />
             <LinearLayout
                     android:layout_width="wrap_content"
@@ -62,7 +80,7 @@
                     android:orientation="vertical"
                     android:layout_toRightOf="@id/arrow_wind"
                     android:layout_marginLeft="5dp"
-                    android:layout_below="@id/city_container"
+                    android:layout_below="@id/day_container"
                     >
                 <TextView
                         android:layout_width="wrap_content"

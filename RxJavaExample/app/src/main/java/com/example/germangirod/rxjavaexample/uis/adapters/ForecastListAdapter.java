@@ -5,11 +5,13 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 import com.example.germangirod.rxjavaexample.R;
 import com.example.germangirod.rxjavaexample.data.model.WeatherResponse;
+import com.example.germangirod.rxjavaexample.uis.widget.ArrowView;
 import java.util.List;
 
 /**
@@ -32,7 +34,7 @@ public class ForecastListAdapter extends RecyclerView.Adapter<ForecastListAdapte
     }
 
     @Override public ForecastRowHolder onCreateViewHolder(ViewGroup viewGroup, final int i) {
-        View v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item_weather_row, viewGroup, false);
+        View v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.forecast_weather_row, viewGroup, false);
         ForecastRowHolder weatherRowHolder = new ForecastRowHolder(v);
 
         return weatherRowHolder;
@@ -42,8 +44,13 @@ public class ForecastListAdapter extends RecyclerView.Adapter<ForecastListAdapte
 
         WeatherResponse weatherResponse = currentWeathers.get(i);
 
-        weatherRowHolder.stationName.setText(String.valueOf(weatherResponse.getDt_txt()));
-        weatherRowHolder.stationDistance.setText(String.valueOf(weatherResponse.getWind().getSpeed()));
+        weatherRowHolder.temperature.setText(weatherResponse.getMain().getTemp());
+        weatherRowHolder.arrowWind.setAngleRotation(weatherResponse.getWind().getDeg());
+        weatherRowHolder.windSpeed.setText(weatherResponse.getWind().getSpeed());
+        weatherRowHolder.windDegree.setText(weatherResponse.getWind().degToString());
+        weatherRowHolder.date.setText(weatherResponse.getDay());
+        weatherRowHolder.hours.setText(weatherResponse.getHours());
+
     }
 
     @Override public int getItemCount() {
@@ -56,8 +63,13 @@ public class ForecastListAdapter extends RecyclerView.Adapter<ForecastListAdapte
 
     public class ForecastRowHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-        @InjectView(R.id.station_distance) TextView stationDistance;
-        @InjectView(R.id.station_name) TextView stationName;
+        @InjectView(R.id.arrow_wind) ArrowView arrowWind;
+        @InjectView(R.id.weather_image) ImageView weatherImage;
+        @InjectView(R.id.wind_speed) TextView windSpeed;
+        @InjectView(R.id.wind_dg) TextView windDegree;
+        @InjectView(R.id.temperature) TextView temperature;
+        @InjectView(R.id.day) TextView date;
+        @InjectView(R.id.hours) TextView hours;
 
         public ForecastRowHolder(View itemView) {
             super(itemView);
