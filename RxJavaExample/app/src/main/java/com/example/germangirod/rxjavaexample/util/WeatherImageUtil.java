@@ -15,28 +15,14 @@ public class WeatherImageUtil {
     }
 
     public int setWeatherImage() {
-
-        if (weatherResponse.isDay()) {
-            if (weatherResponse.getClouds().all == 0) {
-
-                return R.drawable.sunny;
-            }
-            if (weatherResponse.getClouds().all > 0 && weatherResponse.getClouds().all <= 50) {
-
-                return R.drawable.cloudy;
-            }
-        }else{
-           return R.drawable.moon;
-        }
-
         if (weatherResponse.getRain() != null) {
 
             if (weatherResponse.getClouds().getAll() == 0) {
-                return R.drawable.sunny;
+                return (weatherResponse.isDay()) ? R.drawable.sunny : R.drawable.moon;
             } else if (weatherResponse.getClouds().getAll() > 0 && weatherResponse.getClouds().getAll() < 50) {
-                return R.drawable.cloudy;
+                return (weatherResponse.isDay()) ? R.drawable.mostly_cloudy : R.drawable.cloudy;
             } else if (weatherResponse.getClouds().getAll() > 50) {
-                return R.drawable.mostly_cloudy;
+                return R.drawable.cloudy;
             } else {
                 if (weatherResponse.getRain().getValue() < 0.5) {
                     return R.drawable.slight_drizzle;
@@ -47,6 +33,14 @@ public class WeatherImageUtil {
         } else {
             if (weatherResponse.getClouds().all > 50) {
                 return R.drawable.cloudy;
+            }
+            if (weatherResponse.getClouds().all == 0) {
+
+                return R.drawable.sunny;
+            }
+            if (weatherResponse.getClouds().all > 0 && weatherResponse.getClouds().all <= 50) {
+
+                return (weatherResponse.isDay()) ? R.drawable.mostly_cloudy : R.drawable.cloudy;
             }
         }
 

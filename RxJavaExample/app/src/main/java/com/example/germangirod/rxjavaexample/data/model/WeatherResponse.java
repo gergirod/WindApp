@@ -3,7 +3,6 @@ package com.example.germangirod.rxjavaexample.data.model;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 import org.joda.time.DateTime;
@@ -76,12 +75,15 @@ public class WeatherResponse {
 
     public boolean isDay() {
 
-        Date date = new Date();
-        Timestamp actualHour = new Timestamp(date.getTime());
-        Timestamp sunriseHour = new Timestamp(Long.valueOf(sys.getSunrise()) * 1000);
-        Timestamp sunsetHour = new Timestamp(Long.valueOf(sys.getSunset()) * 1000);
+        DateTime actualTime = new DateTime();
 
-        if (actualHour.getHours() > sunriseHour.getHours() && actualHour.getHours() < sunsetHour.getHours()) {
+        Timestamp sunriseHour = new Timestamp(Long.valueOf(sys.getSunrise()) * 1000);
+        DateTime sunriseDateTime = new DateTime(sunriseHour);
+
+        Timestamp sunsetHour = new Timestamp(Long.valueOf(sys.getSunset()) * 1000);
+        DateTime sunsetDateTime = new DateTime(sunsetHour);
+
+        if(actualTime.getHourOfDay()> sunriseDateTime.getHourOfDay() && actualTime.getHourOfDay() < sunsetDateTime.getHourOfDay()){
 
             return true;
         }
