@@ -20,4 +20,5 @@ public class Sys {
     public int getSunset() {
         return sunset;
     }
+
 }

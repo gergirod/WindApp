@@ -8,6 +8,7 @@ import android.support.v7.widget.CardView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
@@ -16,18 +17,28 @@ import com.example.germangirod.rxjavaexample.data.model.WeatherResponse;
 import com.example.germangirod.rxjavaexample.data.presenters.LocationCurrentWeatherData;
 import com.example.germangirod.rxjavaexample.data.presenters.LocationCurrentWeatherDataPresenter;
 import com.example.germangirod.rxjavaexample.uis.ForecastActivity;
+import com.example.germangirod.rxjavaexample.uis.widget.ArrowView;
+import com.example.germangirod.rxjavaexample.util.WeatherImageUtil;
 
 /**
  * Created by germangirod on 5/13/15.
  */
 public class CurrentLocationWeatherFragment extends LocationBaseFragment implements LocationCurrentWeatherDataPresenter, View.OnClickListener {
 
+    @InjectView(R.id.card_view) CardView cardView;
+    @InjectView(R.id.city_name) TextView cityName;
+    @InjectView(R.id.arrow_wind) ArrowView arrowWind;
+    @InjectView(R.id.wind_speed) TextView windSpeed;
+    @InjectView(R.id.wind_dg) TextView windDg;
+    @InjectView(R.id.weather_image) ImageView weatherImage;
+    @InjectView(R.id.temperature) TextView temperature;
+    @InjectView(R.id.pressure) TextView pressure;
+    @InjectView(R.id.humidity) TextView humidity;
+    @InjectView(R.id.date) TextView date;
     private LocationCurrentWeatherData locationCurrentWeatherData;
     private Location auxLocation;
-    @InjectView(R.id.card_view) CardView cardView;
-    @InjectView(R.id.station_name) TextView cityName;
-
     private WeatherResponse currentWeather;
+
     public static Fragment getInstance() {
         CurrentLocationWeatherFragment f = new CurrentLocationWeatherFragment();
         return f;
@@ -69,15 +80,45 @@ public class CurrentLocationWeatherFragment extends LocationBaseFragment impleme
     @Override public void getCurrentWeather(WeatherResponse currentWeathers) {
         currentWeather = currentWeathers;
         cityName.setText(currentWeather.getName());
+        arrowWind.setVisibility(View.VISIBLE);
+        arrowWind.setImageResource(R.drawable.arrow);
+        arrowWind.setAngleRotation(currentWeathers.getWind().getDeg());
+        windSpeed.setText(currentWeather.getWind().getSpeed());
+        windDg.setText(currentWeather.getWind().degToString());
+        pressure.setText("Press: " + currentWeather.getMain().getPressure());
+        humidity.setText("Hum: " + currentWeather.getMain().getHumidity());
+        temperature.setText("Temp: " + currentWeather.getMain().getTemp());
+        date.setText(currentWeather.getFullDate());
+
+        setTextAndBackgroundColors(currentWeathers.isDay());
+
+        WeatherImageUtil weatherImageUtil = new WeatherImageUtil(currentWeathers);
+        weatherImage.setImageResource(weatherImageUtil.setWeatherImage());
     }
 
     @Override public void onError(Throwable throwable) {
 
     }
 
+    private void setTextAndBackgroundColors(boolean isDay) {
+        if (!isDay) {
+            cityName.setTextColor(getResources().getColor(R.color.white));
+            windSpeed.setTextColor(getResources().getColor(R.color.white));
+            windDg.setTextColor(getResources().getColor(R.color.white));
+            cardView.setBackgroundColor(getResources().getColor(R.color.black));
+            pressure.setTextColor(getResources().getColor(R.color.white));
+            temperature.setTextColor(getResources().getColor(R.color.white));
+            humidity.setTextColor(getResources().getColor(R.color.white));
+        }
+    }
+
+
+
     @Override public void onClick(View v) {
-        if(currentWeather!=null){
-            ForecastActivity.goTo(getActivity(), String.valueOf(currentWeather.getId()));
+        if (currentWeather != null) {
+            ForecastActivity.goTo(getActivity(), String.valueOf(currentWeather.getId()), currentWeather.getWind().getSpeed(),
+                    currentWeather.getWind().degToString(), currentWeather.getMain().getTemp(), currentWeather.getWind().getDeg(), currentWeather.getDay(),
+                    currentWeather.getHours());
         }
     }
 }

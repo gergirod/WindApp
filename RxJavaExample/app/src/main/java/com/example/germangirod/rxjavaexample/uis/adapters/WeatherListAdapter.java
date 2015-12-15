@@ -5,11 +5,14 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 import com.example.germangirod.rxjavaexample.R;
 import com.example.germangirod.rxjavaexample.data.model.WeatherResponse;
+import com.example.germangirod.rxjavaexample.uis.widget.ArrowView;
+import com.example.germangirod.rxjavaexample.util.WeatherImageUtil;
 import java.util.List;
 
 /**
@@ -41,9 +44,15 @@ public class WeatherListAdapter extends RecyclerView.Adapter<WeatherListAdapter.
     @Override public void onBindViewHolder(WeatherRowHolder weatherRowHolder, int i) {
 
         WeatherResponse weatherResponse = currentWeathers.get(i);
+        weatherRowHolder.temperature.setText(weatherResponse.getMain().getTemp());
+        weatherRowHolder.arrowWind.setAngleRotation(weatherResponse.getWind().getDeg());
+        weatherRowHolder.windSpeed.setText(weatherResponse.getWind().getSpeed());
+        weatherRowHolder.windDegree.setText(weatherResponse.getWind().degToString());
+        weatherRowHolder.city.setText(weatherResponse.getName());
 
-        weatherRowHolder.stationName.setText(String.valueOf(weatherResponse.getId()));
-        weatherRowHolder.stationDistance.setText(weatherResponse.getName());
+        WeatherImageUtil weatherImageUtil = new WeatherImageUtil(weatherResponse);
+
+        weatherRowHolder.weatherImage.setImageResource(weatherImageUtil.setWeatherImage());
     }
 
     @Override public int getItemCount() {
@@ -56,8 +65,12 @@ public class WeatherListAdapter extends RecyclerView.Adapter<WeatherListAdapter.
 
     public class WeatherRowHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-        @InjectView(R.id.station_distance) TextView stationDistance;
-        @InjectView(R.id.station_name) TextView stationName;
+        @InjectView(R.id.arrow_wind) ArrowView arrowWind;
+        @InjectView(R.id.weather_image) ImageView weatherImage;
+        @InjectView(R.id.wind_speed) TextView windSpeed;
+        @InjectView(R.id.wind_dg) TextView windDegree;
+        @InjectView(R.id.temperature) TextView temperature;
+        @InjectView(R.id.city) TextView city;
 
         public WeatherRowHolder(View itemView) {
             super(itemView);

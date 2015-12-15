@@ -4,10 +4,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v7.app.ActionBar;
-import android.support.v7.widget.Toolbar;
-import butterknife.ButterKnife;
-import butterknife.InjectView;
 import com.example.germangirod.rxjavaexample.R;
 import com.example.germangirod.rxjavaexample.uis.fragments.LocationWeatherForecastFragment;
 
@@ -16,14 +12,25 @@ import com.example.germangirod.rxjavaexample.uis.fragments.LocationWeatherForeca
  */
 public class ForecastActivity extends BaseActivity {
 
-    @InjectView(R.id.toolbar) Toolbar toolbar;
     private FragmentTransaction fragmentTransaction;
     private String cityId;
+    private String windSpeed;
+    private String windDegree;
+    private String temperature;
+    private Float degree;
+    private String day;
+    private String hours;
 
-    public static void goTo(Context context, String placeId) {
+    public static void goTo(Context context, String placeId, String windSpeed, String windDegree, String temperature, float degree, String day, String hours) {
 
         Intent intent = new Intent(context, ForecastActivity.class);
         intent.putExtra("place_id", placeId);
+        intent.putExtra("wind_speed", windSpeed);
+        intent.putExtra("wind_degree", windDegree);
+        intent.putExtra("temperature", temperature);
+        intent.putExtra("degree", degree);
+        intent.putExtra("day", day);
+        intent.putExtra("hours", hours);
         context.startActivity(intent);
     }
 
@@ -34,8 +41,6 @@ public class ForecastActivity extends BaseActivity {
     @Override protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        ButterKnife.inject(this);
-        setToolbar();
         getCityId();
         setFragment();
     }
@@ -43,19 +48,18 @@ public class ForecastActivity extends BaseActivity {
     private void getCityId() {
         Bundle bundle = getIntent().getExtras();
         cityId = bundle.getString("place_id");
+        windSpeed = bundle.getString("wind_speed");
+        windDegree = bundle.getString("wind_degree");
+        temperature = bundle.getString("temperature");
+        degree = bundle.getFloat("degree");
+        day = bundle.getString("day");
+        hours = bundle.getString("hours");
     }
 
     private void setFragment() {
         fragmentTransaction = getSupportFragmentManager().beginTransaction();
-        fragmentTransaction.replace(R.id.main_content, LocationWeatherForecastFragment.getInstance(cityId));
+        fragmentTransaction.replace(R.id.main_content,
+                LocationWeatherForecastFragment.getInstance(cityId, windSpeed, windDegree, temperature, degree, day, hours));
         fragmentTransaction.commit();
-    }
-
-    private void setToolbar() {
-        setSupportActionBar(toolbar);
-        ActionBar actionBar = getSupportActionBar();
-        if (actionBar != null) {
-            actionBar.setDisplayHomeAsUpEnabled(true);
-        }
     }
 }

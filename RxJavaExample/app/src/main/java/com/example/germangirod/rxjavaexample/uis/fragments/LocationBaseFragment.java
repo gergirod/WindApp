@@ -39,19 +39,20 @@ public abstract class LocationBaseFragment extends Fragment
     @Override public void onConnected(Bundle bundle) {
         locationRequest = LocationRequest.create();
         locationRequest.setPriority(LocationRequest.PRIORITY_BALANCED_POWER_ACCURACY);
-        locationRequest.setInterval(1000);
+        locationRequest.setInterval(1);
 
         LocationServices.FusedLocationApi.requestLocationUpdates(googleApiClient, locationRequest, this);
     }
 
     @Override public void onConnectionSuspended(int i) {
-
     }
 
     @Override public void onLocationChanged(Location location) {
+
     }
 
     @Override public void onConnectionFailed(ConnectionResult connectionResult) {
+
 
     }
 }
