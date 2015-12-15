@@ -12,6 +12,7 @@ import butterknife.InjectView;
 import com.example.germangirod.rxjavaexample.R;
 import com.example.germangirod.rxjavaexample.data.model.WeatherResponse;
 import com.example.germangirod.rxjavaexample.uis.widget.ArrowView;
+import com.example.germangirod.rxjavaexample.util.WeatherImageUtil;
 import java.util.List;
 
 /**
@@ -48,6 +49,10 @@ public class WeatherListAdapter extends RecyclerView.Adapter<WeatherListAdapter.
         weatherRowHolder.windSpeed.setText(weatherResponse.getWind().getSpeed());
         weatherRowHolder.windDegree.setText(weatherResponse.getWind().degToString());
         weatherRowHolder.city.setText(weatherResponse.getName());
+
+        WeatherImageUtil weatherImageUtil = new WeatherImageUtil(weatherResponse);
+
+        weatherRowHolder.weatherImage.setImageResource(weatherImageUtil.setWeatherImage());
     }
 
     @Override public int getItemCount() {
