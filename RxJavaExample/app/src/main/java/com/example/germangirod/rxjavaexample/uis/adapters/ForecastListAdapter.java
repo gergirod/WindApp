@@ -23,9 +23,11 @@ public class ForecastListAdapter extends RecyclerView.Adapter<ForecastListAdapte
     private Context context;
     private List<WeatherResponse> currentWeathers;
     private onRowClick onRowClick;
+    private WeatherResponse cityWeather;
 
-    public ForecastListAdapter(Context context, List<WeatherResponse> currentWeathers) {
+    public ForecastListAdapter(Context context, List<WeatherResponse> currentWeathers, WeatherResponse cityWeather) {
 
+        this.cityWeather = cityWeather;
         this.context = context;
         this.currentWeathers = currentWeathers;
     }
@@ -51,6 +53,9 @@ public class ForecastListAdapter extends RecyclerView.Adapter<ForecastListAdapte
         weatherRowHolder.windDegree.setText(weatherResponse.getWind().degToString());
         weatherRowHolder.date.setText(weatherResponse.getDay());
         weatherRowHolder.hours.setText(weatherResponse.getHours());
+
+        weatherResponse.getSys().sunrise= cityWeather.getSys().sunrise;
+        weatherResponse.getSys().sunset= cityWeather.getSys().sunset;
 
         WeatherImageUtil weatherImageUtil = new WeatherImageUtil(weatherResponse);
 

@@ -116,9 +116,7 @@ public class CurrentLocationWeatherFragment extends LocationBaseFragment impleme
 
     @Override public void onClick(View v) {
         if (currentWeather != null) {
-            ForecastActivity.goTo(getActivity(), String.valueOf(currentWeather.getId()), currentWeather.getWind().getSpeed(),
-                    currentWeather.getWind().degToString(), currentWeather.getMain().getTemp(), currentWeather.getWind().getDeg(), currentWeather.getDay(),
-                    currentWeather.getHours());
+            ForecastActivity.goTo(getActivity(), currentWeather);
         }
     }
 }

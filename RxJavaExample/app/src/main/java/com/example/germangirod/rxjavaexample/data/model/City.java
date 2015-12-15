@@ -1,8 +1,11 @@
 package com.example.germangirod.rxjavaexample.data.model;
 
+import org.parceler.Parcel;
+
 /**
  * Created by germangirod on 5/15/15.
  */
+@Parcel
 public class City {
 
     public int id;
@@ -10,6 +13,10 @@ public class City {
     public Coords coords;
     public String country;
     public int population;
+
+    public City(){
+
+    }
 
     public int getId() {
         return id;

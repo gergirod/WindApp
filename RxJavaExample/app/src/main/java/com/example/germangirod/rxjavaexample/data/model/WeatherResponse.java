@@ -1,15 +1,18 @@
 package com.example.germangirod.rxjavaexample.data.model;
 
+import android.util.Log;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
 import org.joda.time.DateTime;
+import org.parceler.Parcel;
 
 /**
  * Created by germangirod on 5/1/15.
  */
+@Parcel
 public class WeatherResponse {
 
     public Coords coords;
@@ -24,6 +27,10 @@ public class WeatherResponse {
     public String name;
     public int cod;
     public String dt_txt;
+
+    public WeatherResponse(){
+
+    }
 
     public Coords getCoords() {
         return coords;
@@ -75,8 +82,9 @@ public class WeatherResponse {
 
     public boolean isDay() {
 
-        DateTime actualTime = new DateTime();
+        DateTime actualTime = setUpDateTime();
 
+        Log.e("mirar las horas","mirar las horas "+actualTime.getHourOfDay());
         Timestamp sunriseHour = new Timestamp(Long.valueOf(sys.getSunrise()) * 1000);
         DateTime sunriseDateTime = new DateTime(sunriseHour);
 

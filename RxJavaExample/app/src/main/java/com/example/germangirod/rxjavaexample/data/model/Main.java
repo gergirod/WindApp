@@ -1,10 +1,12 @@
 package com.example.germangirod.rxjavaexample.data.model;
 
 import java.text.DecimalFormat;
+import org.parceler.Parcel;
 
 /**
  * Created by germangirod on 5/13/15.
  */
+@Parcel
 public class Main {
 
     public Double temp;
@@ -12,6 +14,10 @@ public class Main {
     public Double pressure;
     public Double temp_min;
     public Double temp_max;
+
+    public Main(){
+
+    }
 
     public String getTemp() {
         return getTemperatureInCelsius()+"°C";

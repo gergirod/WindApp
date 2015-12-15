@@ -63,10 +63,7 @@ public class MyLocationsWeatherFragment extends Fragment implements MyLocationsC
 
         weatherListAdapter.setRowClick(new WeatherListAdapter.onRowClick() {
             @Override public void clickWeatherRow(View v, int i) {
-                ForecastActivity.goTo(getActivity(), String.valueOf(currentWeathers.getWeatherResponse().get(i).getId()),
-                        currentWeathers.getWeatherResponse().get(i).getWind().getSpeed(), currentWeathers.getWeatherResponse().get(i).getWind().degToString(),
-                        currentWeathers.getWeatherResponse().get(i).getMain().getTemp(), currentWeathers.getWeatherResponse().get(i).getWind().getDeg(),
-                        currentWeathers.getWeatherResponse().get(i).getDay(), currentWeathers.getWeatherResponse().get(i).getHours());
+                ForecastActivity.goTo(getActivity(), currentWeathers.getWeatherResponse().get(i));
             }
         });
     }

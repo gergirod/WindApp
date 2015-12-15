@@ -5,7 +5,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
 import com.example.germangirod.rxjavaexample.R;
+import com.example.germangirod.rxjavaexample.data.model.WeatherResponse;
 import com.example.germangirod.rxjavaexample.uis.fragments.LocationWeatherForecastFragment;
+import org.parceler.Parcels;
 
 /**
  * Created by germangirod on 10/19/15.
@@ -13,24 +15,12 @@ import com.example.germangirod.rxjavaexample.uis.fragments.LocationWeatherForeca
 public class ForecastActivity extends BaseActivity {
 
     private FragmentTransaction fragmentTransaction;
-    private String cityId;
-    private String windSpeed;
-    private String windDegree;
-    private String temperature;
-    private Float degree;
-    private String day;
-    private String hours;
+    WeatherResponse weatherResponse;
 
-    public static void goTo(Context context, String placeId, String windSpeed, String windDegree, String temperature, float degree, String day, String hours) {
+    public static void goTo(Context context, WeatherResponse weatherResponse) {
 
         Intent intent = new Intent(context, ForecastActivity.class);
-        intent.putExtra("place_id", placeId);
-        intent.putExtra("wind_speed", windSpeed);
-        intent.putExtra("wind_degree", windDegree);
-        intent.putExtra("temperature", temperature);
-        intent.putExtra("degree", degree);
-        intent.putExtra("day", day);
-        intent.putExtra("hours", hours);
+        intent.putExtra("weather_response", Parcels.wrap(weatherResponse));
         context.startActivity(intent);
     }
 
@@ -47,19 +37,13 @@ public class ForecastActivity extends BaseActivity {
 
     private void getCityId() {
         Bundle bundle = getIntent().getExtras();
-        cityId = bundle.getString("place_id");
-        windSpeed = bundle.getString("wind_speed");
-        windDegree = bundle.getString("wind_degree");
-        temperature = bundle.getString("temperature");
-        degree = bundle.getFloat("degree");
-        day = bundle.getString("day");
-        hours = bundle.getString("hours");
+        weatherResponse= Parcels.unwrap(bundle.getParcelable("weather_response"));
     }
 
     private void setFragment() {
         fragmentTransaction = getSupportFragmentManager().beginTransaction();
         fragmentTransaction.replace(R.id.main_content,
-                LocationWeatherForecastFragment.getInstance(cityId, windSpeed, windDegree, temperature, degree, day, hours));
+                LocationWeatherForecastFragment.getInstance(weatherResponse));
         fragmentTransaction.commit();
     }
 }

@@ -20,10 +20,13 @@ import butterknife.ButterKnife;
 import butterknife.InjectView;
 import com.example.germangirod.rxjavaexample.R;
 import com.example.germangirod.rxjavaexample.data.model.Forecast;
+import com.example.germangirod.rxjavaexample.data.model.WeatherResponse;
 import com.example.germangirod.rxjavaexample.data.presenters.ForecastPresenter;
 import com.example.germangirod.rxjavaexample.data.presenters.ForecastWeatherData;
 import com.example.germangirod.rxjavaexample.uis.adapters.ForecastListAdapter;
 import com.example.germangirod.rxjavaexample.uis.widget.ArrowView;
+import com.example.germangirod.rxjavaexample.util.WeatherImageUtil;
+import org.parceler.Parcels;
 
 /**
  * Created by germangirod on 10/19/15.
@@ -43,27 +46,15 @@ public class LocationWeatherForecastFragment extends Fragment implements Forecas
     @InjectView(R.id.forecast_wind_speed) TextView forecastWindSpeed;
     @InjectView(R.id.forecast_wind_dg) TextView forecastWindDg;
     private ForecastWeatherData forecastWeatherData;
-    private String cityId;
-    private String windSpeed;
-    private String windDegree;
-    private String temperature;
-    private float degrees;
-    private String day;
-    private String hours;
     private ForecastListAdapter forecastListAdapter;
+    private WeatherResponse cityWeatherResponse;
 
-    public static Fragment getInstance(String placeId, String windSpeed, String windDregrees, String temperature, float degrees, String day, String hours ) {
+    public static Fragment getInstance(WeatherResponse weatherResponse) {
 
         Fragment locationWeatherForecastFragment = new LocationWeatherForecastFragment();
 
         Bundle arguments = new Bundle();
-        arguments.putString("place_id", placeId);
-        arguments.putString("wind_speed", windSpeed);
-        arguments.putString("wind_degress", windDregrees);
-        arguments.putString("temperature", temperature);
-        arguments.putFloat("degress", degrees);
-        arguments.putString("day", day);
-        arguments.putString("hours", hours);
+        arguments.putParcelable("weather_response", Parcels.wrap(weatherResponse));
         locationWeatherForecastFragment.setArguments(arguments);
 
         return locationWeatherForecastFragment;
@@ -76,7 +67,7 @@ public class LocationWeatherForecastFragment extends Fragment implements Forecas
         getBundleData();
         setToolbar();
         prepareList();
-        getForecast(cityId);
+        getForecast(String.valueOf(cityWeatherResponse.getId()));
 
         return v;
     }
@@ -85,14 +76,7 @@ public class LocationWeatherForecastFragment extends Fragment implements Forecas
         cardView.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
         Bundle arguments = getArguments();
         if (arguments != null) {
-            cityId = arguments.getString("place_id");
-            windSpeed= arguments.getString("wind_speed");
-            windDegree= arguments.getString("wind_degress");
-            temperature= arguments.getString("temperature");
-            degrees= arguments.getFloat("degress");
-            day = arguments.getString("day");
-            hours= arguments.getString("hours");
-
+            cityWeatherResponse = Parcels.unwrap(arguments.getParcelable("weather_response"));
             setNowForecast();
 
         }
@@ -100,13 +84,16 @@ public class LocationWeatherForecastFragment extends Fragment implements Forecas
 
     private void setNowForecast(){
 
-        forecastWindSpeed.setText(windSpeed);
-        forecastWindDg.setText(windDegree);
-        forecastArrow.setAngleRotation(degrees);
-        forecastTemperature.setText(temperature);
-        forecastDay.setText(day);
-        forecastHours.setText(hours);
-        forecastWeatherImage.setImageResource(R.drawable.moon);
+        forecastWindSpeed.setText(cityWeatherResponse.getWind().getSpeed());
+        forecastWindDg.setText(cityWeatherResponse.getWind().degToString());
+        forecastArrow.setAngleRotation(cityWeatherResponse.getWind().getDeg());
+        forecastTemperature.setText(cityWeatherResponse.getMain().getTemp());
+        forecastDay.setText(cityWeatherResponse.getDay());
+        forecastHours.setText(cityWeatherResponse.getHours());
+
+        WeatherImageUtil weatherImageUtil = new WeatherImageUtil(cityWeatherResponse);
+
+        forecastWeatherImage.setImageResource(weatherImageUtil.setWeatherImage());
 
     }
 
@@ -134,7 +121,7 @@ public class LocationWeatherForecastFragment extends Fragment implements Forecas
 
     @Override public void getForecastByCityId(Forecast forecast) {
         collapsingToolbarLayout.setTitle(forecast.getCity().getName()+", "+forecast.getCity().getCountry());
-        forecastListAdapter = new ForecastListAdapter(getActivity(), forecast.getWeatherResponses());
+        forecastListAdapter = new ForecastListAdapter(getActivity(), forecast.getWeatherResponses(), cityWeatherResponse);
         recyclerView.setAdapter(forecastListAdapter);
 
         loading.setVisibility(View.GONE);

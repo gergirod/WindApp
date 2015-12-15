@@ -1,14 +1,20 @@
 package com.example.germangirod.rxjavaexample.data.model;
 
 import java.text.DecimalFormat;
+import org.parceler.Parcel;
 
 /**
  * Created by germangirod on 5/13/15.
  */
+@Parcel
 public class Wind {
 
     public Double speed;
     public float deg;
+
+    public Wind(){
+
+    }
 
     public String getSpeed() {
         return minutesPerSecondToKnots();

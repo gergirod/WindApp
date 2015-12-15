@@ -36,7 +36,7 @@ public class WeatherImageUtil {
             }
             if (weatherResponse.getClouds().all == 0) {
 
-                return R.drawable.sunny;
+                return (weatherResponse.isDay()) ? R.drawable.mostly_cloudy : R.drawable.cloudy;
             }
             if (weatherResponse.getClouds().all > 0 && weatherResponse.getClouds().all <= 50) {
 
