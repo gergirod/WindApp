@@ -2,6 +2,7 @@ package com.example.germangirod.rxjavaexample.uis.adapters;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +13,7 @@ import butterknife.InjectView;
 import com.example.germangirod.rxjavaexample.R;
 import com.example.germangirod.rxjavaexample.data.model.WeatherResponse;
 import com.example.germangirod.rxjavaexample.uis.widget.ArrowView;
+import com.example.germangirod.rxjavaexample.util.WeatherImageUtil;
 import java.util.List;
 
 /**
@@ -50,6 +52,13 @@ public class ForecastListAdapter extends RecyclerView.Adapter<ForecastListAdapte
         weatherRowHolder.windDegree.setText(weatherResponse.getWind().degToString());
         weatherRowHolder.date.setText(weatherResponse.getDay());
         weatherRowHolder.hours.setText(weatherResponse.getHours());
+
+        WeatherImageUtil weatherImageUtil = new WeatherImageUtil(weatherResponse);
+
+        weatherRowHolder.weatherImage.setImageResource(weatherImageUtil.setWeatherImage());
+
+        Log.e("mirar la lluvia ","mirar "+weatherResponse.getRain().getValue());
+        Log.e("mirar las nubes","mirar las nubes "+weatherResponse.getClouds().getAll());
 
     }
 

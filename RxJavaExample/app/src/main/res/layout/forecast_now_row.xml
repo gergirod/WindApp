@@ -7,18 +7,15 @@
             xmlns:card_view="http://schemas.android.com/apk/res-auto"
             android:id="@+id/card_view"
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            card_view:cardElevation="4dp"
-            card_view:cardCornerRadius="4dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:layout_marginBottom="10dp"
+            android:layout_height="150dp"
+            android:layout_marginTop="@dimen/abc_action_bar_default_height_material"
+            card_view:cardElevation="0dp"
             >
         <RelativeLayout
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="7dp"
+                android:layout_gravity="center_vertical"
                 >
 
                 <LinearLayout
@@ -32,18 +29,18 @@
                         <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:id="@+id/day"
-                                android:textSize="15dp"
-                                android:textColor="@color/black"
-                                android:textStyle="normal"
-
+                                android:id="@+id/forecast_day"
+                                android:textSize="17dp"
+                                android:textColor="@color/white"
+                                android:textStyle="bold"
+                                android:layout_marginLeft="10dp"
                                 />
                 </LinearLayout>
             <com.example.germangirod.rxjavaexample.uis.widget.ArrowView
-                    android:layout_width="60dp"
-                    android:layout_height="60dp"
-                    android:src="@drawable/arrow"
-                    android:id="@+id/arrow_wind"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:src="@drawable/arrow_grey"
+                    android:id="@+id/forecast_arrow_wind"
                     android:visibility="visible"
                     android:layout_alignParentLeft="true"
                     android:layout_below="@id/day_container"
@@ -53,52 +50,54 @@
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
                     android:layout_alignParentRight="true"
-                    android:layout_marginRight="7dp"
+                    android:layout_marginRight="10dp"
                     android:id="@+id/hour_container"
                     android:layout_marginBottom="7dp"
                     >
                 <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:id="@+id/hours"
-                        android:textSize="15dp"
-                        android:textColor="@color/black"
-                        android:textStyle="normal"
+                        android:id="@+id/forecast_hours"
+                        android:textSize="17dp"
+                        android:textColor="@color/white"
+                        android:textStyle="bold"
                         />
             </LinearLayout>
             <ImageView
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
-                    android:id="@+id/weather_image"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:id="@+id/forecast_weather_image"
+                    android:background="@drawable/sunny"
                     android:layout_alignParentRight="true"
-                    android:layout_toLeftOf="@id/weather_image"
+                    android:layout_toLeftOf="@id/forecast_weather_image"
                     android:layout_marginBottom="-8dp"
                     android:layout_below="@id/hour_container"
                     />
             <LinearLayout
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="fill_parent"
                     android:orientation="vertical"
-                    android:layout_toRightOf="@id/arrow_wind"
+                    android:layout_toRightOf="@id/forecast_arrow_wind"
                     android:layout_marginLeft="5dp"
                     android:layout_below="@id/day_container"
+                    android:gravity="center_vertical"
                     >
                 <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:id="@+id/wind_speed"
-                        android:textSize="20dp"
+                        android:id="@+id/forecast_wind_speed"
+                        android:textSize="26sp"
                         android:textStyle="bold"
-                        android:textColor="@color/black"
+                        android:textColor="@color/white"
                         android:text="30 knots"
                         />
                 <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:id="@+id/wind_dg"
-                        android:textSize="20dp"
+                        android:id="@+id/forecast_wind_dg"
+                        android:textSize="26sp"
                         android:textStyle="bold"
-                        android:textColor="@color/black"
+                        android:textColor="@color/white"
                         android:text="120"
                         />
             </LinearLayout>
@@ -106,16 +105,16 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    android:layout_below="@id/weather_image"
+                    android:layout_below="@id/forecast_weather_image"
                     android:layout_alignParentRight="true"
-                    android:layout_marginRight="7dp"
+                    android:layout_marginRight="14dp"
                     >
                 <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:id="@+id/temperature"
-                        android:textSize="15dp"
-                        android:textColor="@color/black"
+                        android:id="@+id/forecast_temperature"
+                        android:textSize="20sp"
+                        android:textColor="@color/white"
                         android:text="30 C"
                         />
             </LinearLayout>

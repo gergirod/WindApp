@@ -18,14 +18,13 @@ import com.example.germangirod.rxjavaexample.data.presenters.LocationCurrentWeat
 import com.example.germangirod.rxjavaexample.data.presenters.LocationCurrentWeatherDataPresenter;
 import com.example.germangirod.rxjavaexample.uis.ForecastActivity;
 import com.example.germangirod.rxjavaexample.uis.widget.ArrowView;
+import com.example.germangirod.rxjavaexample.util.WeatherImageUtil;
 
 /**
  * Created by germangirod on 5/13/15.
  */
 public class CurrentLocationWeatherFragment extends LocationBaseFragment implements LocationCurrentWeatherDataPresenter, View.OnClickListener {
 
-    private LocationCurrentWeatherData locationCurrentWeatherData;
-    private Location auxLocation;
     @InjectView(R.id.card_view) CardView cardView;
     @InjectView(R.id.city_name) TextView cityName;
     @InjectView(R.id.arrow_wind) ArrowView arrowWind;
@@ -36,8 +35,10 @@ public class CurrentLocationWeatherFragment extends LocationBaseFragment impleme
     @InjectView(R.id.pressure) TextView pressure;
     @InjectView(R.id.humidity) TextView humidity;
     @InjectView(R.id.date) TextView date;
-
+    private LocationCurrentWeatherData locationCurrentWeatherData;
+    private Location auxLocation;
     private WeatherResponse currentWeather;
+
     public static Fragment getInstance() {
         CurrentLocationWeatherFragment f = new CurrentLocationWeatherFragment();
         return f;
@@ -84,24 +85,23 @@ public class CurrentLocationWeatherFragment extends LocationBaseFragment impleme
         arrowWind.setAngleRotation(currentWeathers.getWind().getDeg());
         windSpeed.setText(currentWeather.getWind().getSpeed());
         windDg.setText(currentWeather.getWind().degToString());
-        pressure.setText("Press: "+currentWeather.getMain().getPressure());
-        humidity.setText("Hum: "+currentWeather.getMain().getHumidity());
-        temperature.setText("Temp: "+currentWeather.getMain().getTemp());
+        pressure.setText("Press: " + currentWeather.getMain().getPressure());
+        humidity.setText("Hum: " + currentWeather.getMain().getHumidity());
+        temperature.setText("Temp: " + currentWeather.getMain().getTemp());
         date.setText(currentWeather.getFullDate());
 
         setTextAndBackgroundColors(currentWeathers.isDay());
-        setWeatherImage(currentWeathers);
 
-
+        WeatherImageUtil weatherImageUtil = new WeatherImageUtil(currentWeathers);
+        weatherImage.setImageResource(weatherImageUtil.setWeatherImage());
     }
 
     @Override public void onError(Throwable throwable) {
 
-
     }
 
-    private void setTextAndBackgroundColors(boolean isDay){
-        if(!isDay){
+    private void setTextAndBackgroundColors(boolean isDay) {
+        if (!isDay) {
             cityName.setTextColor(getResources().getColor(R.color.white));
             windSpeed.setTextColor(getResources().getColor(R.color.white));
             windDg.setTextColor(getResources().getColor(R.color.white));
@@ -112,29 +112,13 @@ public class CurrentLocationWeatherFragment extends LocationBaseFragment impleme
         }
     }
 
-    private void setWeatherImage(WeatherResponse weatherResponse){
 
-        if(weatherResponse.isDay()){
-            if(weatherResponse.getClouds().all==0) {
-                weatherImage.setImageResource(R.drawable.sunny);
-            }
-            if(weatherResponse.getClouds().all>0 && weatherResponse.getClouds().all<=50){
-                weatherImage.setImageResource(R.drawable.mostly_cloudy);
-            }
-        }
-        if(weatherResponse.getClouds().all>50 ){
-            weatherImage.setImageResource(R.drawable.cloudy);
-        }
-
-        if(weatherResponse.getRain()!=null){
-           weatherImage.setImageResource(R.drawable.drizzle);
-        }
-
-    }
 
     @Override public void onClick(View v) {
-        if(currentWeather!=null){
-            ForecastActivity.goTo(getActivity(), String.valueOf(currentWeather.getId()));
+        if (currentWeather != null) {
+            ForecastActivity.goTo(getActivity(), String.valueOf(currentWeather.getId()), currentWeather.getWind().getSpeed(),
+                    currentWeather.getWind().degToString(), currentWeather.getMain().getTemp(), currentWeather.getWind().getDeg(), currentWeather.getDay(),
+                    currentWeather.getHours());
         }
     }
 }

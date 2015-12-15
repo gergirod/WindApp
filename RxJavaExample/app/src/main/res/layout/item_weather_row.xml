@@ -32,7 +32,7 @@
                         android:layout_height="wrap_content"
                         android:id="@+id/city"
                         android:textSize="15dp"
-                        android:textColor="@android:color/black"
+                        android:textColor="@color/black"
                         android:textStyle="bold"
 
                         />
@@ -70,7 +70,7 @@
                         android:id="@+id/wind_speed"
                         android:textSize="20dp"
                         android:textStyle="bold"
-                        android:textColor="@android:color/black"
+                        android:textColor="@color/black"
                         android:text="30 knots"
                         />
                 <TextView
@@ -79,7 +79,7 @@
                         android:id="@+id/wind_dg"
                         android:textSize="20dp"
                         android:textStyle="bold"
-                        android:textColor="@android:color/black"
+                        android:textColor="@color/black"
                         android:text="120"
                         />
             </LinearLayout>
@@ -96,7 +96,7 @@
                         android:layout_height="wrap_content"
                         android:id="@+id/temperature"
                         android:textSize="15dp"
-                        android:textColor="@android:color/black"
+                        android:textColor="@color/black"
                         android:text="30 C"
                         />
             </LinearLayout>
