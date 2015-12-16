@@ -23,7 +23,7 @@ import org.parceler.Parcels;
 /**
  * Created by germangirod on 5/13/15.
  */
-public class MyLocationsWeatherFragment extends Fragment implements MyLocationsCurrentWeatherPresenter {
+public class MyLocationsWeatherFragment extends Fragment implements MyLocationsCurrentWeatherPresenter, WeatherListAdapter.onRowClick {
 
     private static final String SAVE_CURRENT_WEATHER_RESPONSE_STATE = "current_weather_response_state";
     @InjectView(R.id.my_recycler_view) RecyclerView recyclerView;
@@ -65,15 +65,11 @@ public class MyLocationsWeatherFragment extends Fragment implements MyLocationsC
     @Override public void getCurrentWeather(final CurrentWeather currentWeathers) {
         currentWeather = currentWeathers;
         weatherListAdapter = new WeatherListAdapter(getActivity(), currentWeather.getWeatherResponse());
+        weatherListAdapter.setRowClick(this);
 
         recyclerView.setAdapter(weatherListAdapter);
         loading.setVisibility(View.GONE);
 
-        weatherListAdapter.setRowClick(new WeatherListAdapter.onRowClick() {
-            @Override public void clickWeatherRow(View v, int i) {
-                ForecastActivity.goTo(getActivity(), currentWeathers.getWeatherResponse().get(i));
-            }
-        });
     }
 
     @Override public void onError(Throwable throwable) {
@@ -83,5 +79,9 @@ public class MyLocationsWeatherFragment extends Fragment implements MyLocationsC
     @Override public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
         outState.putParcelable(SAVE_CURRENT_WEATHER_RESPONSE_STATE, Parcels.wrap(currentWeather));
+    }
+
+    @Override public void clickWeatherRow(View v, int i) {
+        ForecastActivity.goTo(getActivity(), currentWeather.getWeatherResponse().get(i));
     }
 }

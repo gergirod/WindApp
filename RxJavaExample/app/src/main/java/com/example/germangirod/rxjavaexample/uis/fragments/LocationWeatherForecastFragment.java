@@ -10,6 +10,7 @@ import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -31,7 +32,7 @@ import org.parceler.Parcels;
 /**
  * Created by germangirod on 10/19/15.
  */
-public class LocationWeatherForecastFragment extends Fragment implements ForecastPresenter {
+public class LocationWeatherForecastFragment extends Fragment implements ForecastPresenter, ForecastListAdapter.onRowClick {
 
     private static final String SAVE_FORECAST_RESPONSE_STATE = "forecast_response_state";
     private static final String SAVE_WEATHER_RESPONSE_STATE = "weather_response_state";
@@ -134,6 +135,7 @@ public class LocationWeatherForecastFragment extends Fragment implements Forecas
         forecast = forecastResponse;
         collapsingToolbarLayout.setTitle(forecast.getCity().getName()+", "+forecast.getCity().getCountry());
         forecastListAdapter = new ForecastListAdapter(getActivity(), forecast.getWeatherResponses(), cityWeatherResponse);
+        forecastListAdapter.setRowClick(this);
         recyclerView.setAdapter(forecastListAdapter);
 
         loading.setVisibility(View.GONE);
@@ -147,5 +149,11 @@ public class LocationWeatherForecastFragment extends Fragment implements Forecas
         super.onSaveInstanceState(outState);
         outState.putParcelable(SAVE_FORECAST_RESPONSE_STATE, Parcels.wrap(forecast));
         outState.putParcelable(SAVE_WEATHER_RESPONSE_STATE, Parcels.wrap(cityWeatherResponse));
+    }
+
+    @Override public void clickWeatherRow(View v, int i) {
+
+        Log.e("mirar esto ","estoy apretando aca ");
+
     }
 }
