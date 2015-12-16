@@ -13,7 +13,6 @@ import butterknife.ButterKnife;
 import butterknife.InjectView;
 import com.example.germangirod.rxjavaexample.R;
 import com.example.germangirod.rxjavaexample.data.api.WeatherForecastLocation;
-import com.example.germangirod.rxjavaexample.data.api.WeatherForecastLocationApi;
 import com.example.germangirod.rxjavaexample.data.model.CurrentWeather;
 import com.example.germangirod.rxjavaexample.data.presenters.MyLocationsCurrentWeatherData;
 import com.example.germangirod.rxjavaexample.data.presenters.MyLocationsCurrentWeatherPresenter;
@@ -42,7 +41,6 @@ public class MyLocationsWeatherFragment extends Fragment implements MyLocationsC
     @Override public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_list, container, false);
         ButterKnife.inject(this, v);
-        api = new WeatherForecastLocationApi();
 
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));

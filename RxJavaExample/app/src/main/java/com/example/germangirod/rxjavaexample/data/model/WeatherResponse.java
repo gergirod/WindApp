@@ -1,6 +1,5 @@
 package com.example.germangirod.rxjavaexample.data.model;
 
-import android.util.Log;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -84,7 +83,6 @@ public class WeatherResponse {
 
         DateTime actualTime = setUpDateTime();
 
-        Log.e("mirar las horas","mirar las horas "+actualTime.getHourOfDay());
         Timestamp sunriseHour = new Timestamp(Long.valueOf(sys.getSunrise()) * 1000);
         DateTime sunriseDateTime = new DateTime(sunriseHour);
 
