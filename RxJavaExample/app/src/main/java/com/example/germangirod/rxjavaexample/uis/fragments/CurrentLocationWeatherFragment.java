@@ -19,12 +19,14 @@ import com.example.germangirod.rxjavaexample.data.presenters.LocationCurrentWeat
 import com.example.germangirod.rxjavaexample.uis.ForecastActivity;
 import com.example.germangirod.rxjavaexample.uis.widget.ArrowView;
 import com.example.germangirod.rxjavaexample.util.WeatherImageUtil;
+import org.parceler.Parcels;
 
 /**
  * Created by germangirod on 5/13/15.
  */
 public class CurrentLocationWeatherFragment extends LocationBaseFragment implements LocationCurrentWeatherDataPresenter, View.OnClickListener {
 
+    private static final String SAVE_WEATHER_RESPONSE_STATE = "weather_response_state";
     @InjectView(R.id.card_view) CardView cardView;
     @InjectView(R.id.city_name) TextView cityName;
     @InjectView(R.id.arrow_wind) ArrowView arrowWind;
@@ -49,6 +51,11 @@ public class CurrentLocationWeatherFragment extends LocationBaseFragment impleme
         ButterKnife.inject(this, v);
 
         cardView.setOnClickListener(this);
+
+        if (savedInstanceState != null) {
+            currentWeather = Parcels.unwrap(savedInstanceState.getParcelable(SAVE_WEATHER_RESPONSE_STATE));
+            getCurrentWeather(currentWeather);
+        }
 
         return v;
     }
@@ -82,7 +89,7 @@ public class CurrentLocationWeatherFragment extends LocationBaseFragment impleme
         cityName.setText(currentWeather.getName());
         arrowWind.setVisibility(View.VISIBLE);
         arrowWind.setImageResource(R.drawable.arrow);
-        arrowWind.setAngleRotation(currentWeathers.getWind().getDeg());
+        arrowWind.setAngleRotation(currentWeather.getWind().getDeg());
         windSpeed.setText(currentWeather.getWind().getSpeed());
         windDg.setText(currentWeather.getWind().degToString());
         pressure.setText("Press: " + currentWeather.getMain().getPressure());
@@ -92,7 +99,7 @@ public class CurrentLocationWeatherFragment extends LocationBaseFragment impleme
 
         setTextAndBackgroundColors(currentWeathers.isDay());
 
-        WeatherImageUtil weatherImageUtil = new WeatherImageUtil(currentWeathers);
+        WeatherImageUtil weatherImageUtil = new WeatherImageUtil(currentWeather);
         weatherImage.setImageResource(weatherImageUtil.setWeatherImage());
     }
 
@@ -112,11 +119,14 @@ public class CurrentLocationWeatherFragment extends LocationBaseFragment impleme
         }
     }
 
-
-
     @Override public void onClick(View v) {
         if (currentWeather != null) {
             ForecastActivity.goTo(getActivity(), currentWeather);
         }
+    }
+
+    @Override public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putParcelable(SAVE_WEATHER_RESPONSE_STATE, Parcels.wrap(currentWeather));
     }
 }

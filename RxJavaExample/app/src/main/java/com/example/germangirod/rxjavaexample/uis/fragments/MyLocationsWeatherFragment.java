@@ -19,17 +19,20 @@ import com.example.germangirod.rxjavaexample.data.presenters.MyLocationsCurrentW
 import com.example.germangirod.rxjavaexample.data.presenters.MyLocationsCurrentWeatherPresenter;
 import com.example.germangirod.rxjavaexample.uis.ForecastActivity;
 import com.example.germangirod.rxjavaexample.uis.adapters.WeatherListAdapter;
+import org.parceler.Parcels;
 
 /**
  * Created by germangirod on 5/13/15.
  */
 public class MyLocationsWeatherFragment extends Fragment implements MyLocationsCurrentWeatherPresenter {
 
+    private static final String SAVE_CURRENT_WEATHER_RESPONSE_STATE = "current_weather_response_state";
     @InjectView(R.id.my_recycler_view) RecyclerView recyclerView;
     @InjectView(R.id.loading) ProgressBar loading;
     private WeatherForecastLocation api;
     private WeatherListAdapter weatherListAdapter;
     private MyLocationsCurrentWeatherData myLocationsCurrentWeatherData;
+    private CurrentWeather currentWeather;
 
     public static Fragment getInstance() {
         MyLocationsWeatherFragment f = new MyLocationsWeatherFragment();
@@ -44,6 +47,12 @@ public class MyLocationsWeatherFragment extends Fragment implements MyLocationsC
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
+        if(savedInstanceState !=null){
+            currentWeather = Parcels.unwrap(savedInstanceState.getParcelable(SAVE_CURRENT_WEATHER_RESPONSE_STATE));
+
+            getCurrentWeather(currentWeather);
+        }
+
         getWeatherList();
 
         return v;
@@ -56,7 +65,8 @@ public class MyLocationsWeatherFragment extends Fragment implements MyLocationsC
     }
 
     @Override public void getCurrentWeather(final CurrentWeather currentWeathers) {
-        weatherListAdapter = new WeatherListAdapter(getActivity(), currentWeathers.getWeatherResponse());
+        currentWeather = currentWeathers;
+        weatherListAdapter = new WeatherListAdapter(getActivity(), currentWeather.getWeatherResponse());
 
         recyclerView.setAdapter(weatherListAdapter);
         loading.setVisibility(View.GONE);
@@ -70,5 +80,10 @@ public class MyLocationsWeatherFragment extends Fragment implements MyLocationsC
 
     @Override public void onError(Throwable throwable) {
         loading.setVisibility(View.GONE);
+    }
+
+    @Override public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putParcelable(SAVE_CURRENT_WEATHER_RESPONSE_STATE, Parcels.wrap(currentWeather));
     }
 }

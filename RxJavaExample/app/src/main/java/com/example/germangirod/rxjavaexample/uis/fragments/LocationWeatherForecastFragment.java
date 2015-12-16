@@ -33,6 +33,8 @@ import org.parceler.Parcels;
  */
 public class LocationWeatherForecastFragment extends Fragment implements ForecastPresenter {
 
+    private static final String SAVE_FORECAST_RESPONSE_STATE = "forecast_response_state";
+    private static final String SAVE_WEATHER_RESPONSE_STATE = "weather_response_state";
     @InjectView(R.id.my_recycler_view) RecyclerView recyclerView;
     @InjectView(R.id.collapsing_toolbar) CollapsingToolbarLayout collapsingToolbarLayout;
     @InjectView(R.id.toolbar) Toolbar toolbar;
@@ -48,6 +50,7 @@ public class LocationWeatherForecastFragment extends Fragment implements Forecas
     private ForecastWeatherData forecastWeatherData;
     private ForecastListAdapter forecastListAdapter;
     private WeatherResponse cityWeatherResponse;
+    private Forecast forecast;
 
     public static Fragment getInstance(WeatherResponse weatherResponse) {
 
@@ -67,6 +70,14 @@ public class LocationWeatherForecastFragment extends Fragment implements Forecas
         getBundleData();
         setToolbar();
         prepareList();
+        if(savedInstanceState!=null){
+
+            forecast = Parcels.unwrap(savedInstanceState.getParcelable(SAVE_FORECAST_RESPONSE_STATE));
+            cityWeatherResponse = Parcels.unwrap(savedInstanceState.getParcelable(SAVE_WEATHER_RESPONSE_STATE));
+
+            getForecastByCityId(forecast);
+
+        }
         getForecast(String.valueOf(cityWeatherResponse.getId()));
 
         return v;
@@ -119,7 +130,8 @@ public class LocationWeatherForecastFragment extends Fragment implements Forecas
         forecastWeatherData.getForecastByCityId(cityId);
     }
 
-    @Override public void getForecastByCityId(Forecast forecast) {
+    @Override public void getForecastByCityId(Forecast forecastResponse) {
+        forecast = forecastResponse;
         collapsingToolbarLayout.setTitle(forecast.getCity().getName()+", "+forecast.getCity().getCountry());
         forecastListAdapter = new ForecastListAdapter(getActivity(), forecast.getWeatherResponses(), cityWeatherResponse);
         recyclerView.setAdapter(forecastListAdapter);
@@ -129,5 +141,11 @@ public class LocationWeatherForecastFragment extends Fragment implements Forecas
 
     @Override public void onError(Throwable throwable) {
         loading.setVisibility(View.GONE);
+    }
+
+    @Override public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putParcelable(SAVE_FORECAST_RESPONSE_STATE, Parcels.wrap(forecast));
+        outState.putParcelable(SAVE_WEATHER_RESPONSE_STATE, Parcels.wrap(cityWeatherResponse));
     }
 }
