@@ -11,6 +11,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -65,6 +66,7 @@ public class LocationWeatherForecastFragment extends Fragment implements Forecas
 
     @Nullable @Override public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.forecast_fragment, container, false);
+        setHasOptionsMenu(true);
         ButterKnife.inject(this, v);
 
         getBundleData();
@@ -148,5 +150,16 @@ public class LocationWeatherForecastFragment extends Fragment implements Forecas
 
     @Override public void clickWeatherRow(View v, int i) {
 
+    }
+
+    @Override public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                getActivity().onBackPressed();
+                return true;
+
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 }
