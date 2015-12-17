@@ -10,7 +10,6 @@ import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -71,13 +70,12 @@ public class LocationWeatherForecastFragment extends Fragment implements Forecas
         getBundleData();
         setToolbar();
         prepareList();
-        if(savedInstanceState!=null){
+        if (savedInstanceState != null) {
 
             forecast = Parcels.unwrap(savedInstanceState.getParcelable(SAVE_FORECAST_RESPONSE_STATE));
             cityWeatherResponse = Parcels.unwrap(savedInstanceState.getParcelable(SAVE_WEATHER_RESPONSE_STATE));
 
             getForecastByCityId(forecast);
-
         }
         getForecast(String.valueOf(cityWeatherResponse.getId()));
 
@@ -90,11 +88,10 @@ public class LocationWeatherForecastFragment extends Fragment implements Forecas
         if (arguments != null) {
             cityWeatherResponse = Parcels.unwrap(arguments.getParcelable("weather_response"));
             setNowForecast();
-
         }
     }
 
-    private void setNowForecast(){
+    private void setNowForecast() {
 
         forecastWindSpeed.setText(cityWeatherResponse.getWind().getSpeed());
         forecastWindDg.setText(cityWeatherResponse.getWind().degToString());
@@ -106,7 +103,6 @@ public class LocationWeatherForecastFragment extends Fragment implements Forecas
         WeatherImageUtil weatherImageUtil = new WeatherImageUtil(cityWeatherResponse);
 
         forecastWeatherImage.setImageResource(weatherImageUtil.setWeatherImage());
-
     }
 
     private void prepareList() {
@@ -114,14 +110,13 @@ public class LocationWeatherForecastFragment extends Fragment implements Forecas
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
     }
 
-    private void setToolbar(){
+    private void setToolbar() {
 
         ((ActionBarActivity) getActivity()).setSupportActionBar(toolbar);
-        ActionBar actionBar =  ((ActionBarActivity) getActivity()).getSupportActionBar();
-            if (actionBar != null) {
-                actionBar.setDisplayHomeAsUpEnabled(true);
-            }
-
+        ActionBar actionBar = ((ActionBarActivity) getActivity()).getSupportActionBar();
+        if (actionBar != null) {
+            actionBar.setDisplayHomeAsUpEnabled(true);
+        }
     }
 
     private void getForecast(String cityId) {
@@ -133,7 +128,7 @@ public class LocationWeatherForecastFragment extends Fragment implements Forecas
 
     @Override public void getForecastByCityId(Forecast forecastResponse) {
         forecast = forecastResponse;
-        collapsingToolbarLayout.setTitle(forecast.getCity().getName()+", "+forecast.getCity().getCountry());
+        collapsingToolbarLayout.setTitle(forecast.getCity().getName() + ", " + forecast.getCity().getCountry());
         forecastListAdapter = new ForecastListAdapter(getActivity(), forecast.getWeatherResponses(), cityWeatherResponse);
         forecastListAdapter.setRowClick(this);
         recyclerView.setAdapter(forecastListAdapter);
@@ -152,8 +147,6 @@ public class LocationWeatherForecastFragment extends Fragment implements Forecas
     }
 
     @Override public void clickWeatherRow(View v, int i) {
-
-        Log.e("mirar esto ","estoy apretando aca ");
 
     }
 }

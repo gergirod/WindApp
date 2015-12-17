@@ -12,10 +12,10 @@ import android.widget.ProgressBar;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 import com.example.germangirod.rxjavaexample.R;
-import com.example.germangirod.rxjavaexample.data.api.WeatherForecastLocation;
 import com.example.germangirod.rxjavaexample.data.model.CurrentWeather;
 import com.example.germangirod.rxjavaexample.data.presenters.MyLocationsCurrentWeatherData;
 import com.example.germangirod.rxjavaexample.data.presenters.MyLocationsCurrentWeatherPresenter;
+import com.example.germangirod.rxjavaexample.data.storage.MyLocationDBManager;
 import com.example.germangirod.rxjavaexample.uis.ForecastActivity;
 import com.example.germangirod.rxjavaexample.uis.adapters.WeatherListAdapter;
 import org.parceler.Parcels;
@@ -28,7 +28,6 @@ public class MyLocationsWeatherFragment extends Fragment implements MyLocationsC
     private static final String SAVE_CURRENT_WEATHER_RESPONSE_STATE = "current_weather_response_state";
     @InjectView(R.id.my_recycler_view) RecyclerView recyclerView;
     @InjectView(R.id.loading) ProgressBar loading;
-    private WeatherForecastLocation api;
     private WeatherListAdapter weatherListAdapter;
     private MyLocationsCurrentWeatherData myLocationsCurrentWeatherData;
     private CurrentWeather currentWeather;
@@ -45,7 +44,7 @@ public class MyLocationsWeatherFragment extends Fragment implements MyLocationsC
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
-        if(savedInstanceState !=null){
+        if (savedInstanceState != null) {
             currentWeather = Parcels.unwrap(savedInstanceState.getParcelable(SAVE_CURRENT_WEATHER_RESPONSE_STATE));
 
             getCurrentWeather(currentWeather);
@@ -59,6 +58,7 @@ public class MyLocationsWeatherFragment extends Fragment implements MyLocationsC
     private void getWeatherList() {
         myLocationsCurrentWeatherData = new MyLocationsCurrentWeatherData();
         myLocationsCurrentWeatherData.setView(this);
+        MyLocationDBManager myLocationDBManager = new MyLocationDBManager(getActivity());
         myLocationsCurrentWeatherData.getMyCurrentWeatherList("3435910");
     }
 
@@ -69,7 +69,6 @@ public class MyLocationsWeatherFragment extends Fragment implements MyLocationsC
 
         recyclerView.setAdapter(weatherListAdapter);
         loading.setVisibility(View.GONE);
-
     }
 
     @Override public void onError(Throwable throwable) {
