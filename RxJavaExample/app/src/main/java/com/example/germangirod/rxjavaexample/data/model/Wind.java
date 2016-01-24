@@ -21,7 +21,7 @@ public class Wind {
     }
 
     public float getDeg() {
-        return deg;
+        return deg-180;
     }
 
     public String degToString(){
