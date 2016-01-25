@@ -50,16 +50,21 @@ public class MyLocationsWeatherFragment extends Fragment implements MyLocationsC
             getCurrentWeather(currentWeather);
         }
 
-        getWeatherList();
 
         return v;
+    }
+
+    @Override public void onResume() {
+        super.onResume();
+        getWeatherList();
     }
 
     private void getWeatherList() {
         myLocationsCurrentWeatherData = new MyLocationsCurrentWeatherData();
         myLocationsCurrentWeatherData.setView(this);
         MyLocationDBManager myLocationDBManager = new MyLocationDBManager(getActivity());
-        myLocationsCurrentWeatherData.getMyCurrentWeatherList("3435910");
+        String citiesIds= myLocationDBManager.getCityIds();
+        myLocationsCurrentWeatherData.getMyCurrentWeatherList(citiesIds);
     }
 
     @Override public void getCurrentWeather(final CurrentWeather currentWeathers) {

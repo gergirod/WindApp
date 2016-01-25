@@ -24,9 +24,11 @@ import com.example.germangirod.rxjavaexample.data.model.Forecast;
 import com.example.germangirod.rxjavaexample.data.model.WeatherResponse;
 import com.example.germangirod.rxjavaexample.data.presenters.ForecastPresenter;
 import com.example.germangirod.rxjavaexample.data.presenters.ForecastWeatherData;
+import com.example.germangirod.rxjavaexample.data.storage.MyLocationDBManager;
 import com.example.germangirod.rxjavaexample.uis.adapters.ForecastListAdapter;
 import com.example.germangirod.rxjavaexample.uis.widget.ArrowView;
 import com.example.germangirod.rxjavaexample.util.WeatherImageUtil;
+import com.melnykov.fab.FloatingActionButton;
 import org.parceler.Parcels;
 
 /**
@@ -48,10 +50,12 @@ public class LocationWeatherForecastFragment extends Fragment implements Forecas
     @InjectView(R.id.forecast_weather_image) ImageView forecastWeatherImage;
     @InjectView(R.id.forecast_wind_speed) TextView forecastWindSpeed;
     @InjectView(R.id.forecast_wind_dg) TextView forecastWindDg;
+    @InjectView(R.id.fab) FloatingActionButton fab;
     private ForecastWeatherData forecastWeatherData;
     private ForecastListAdapter forecastListAdapter;
     private WeatherResponse cityWeatherResponse;
     private Forecast forecast;
+    private MyLocationDBManager myLocationDBManager;
 
     public static Fragment getInstance(WeatherResponse weatherResponse) {
 
@@ -68,6 +72,20 @@ public class LocationWeatherForecastFragment extends Fragment implements Forecas
         View v = inflater.inflate(R.layout.forecast_fragment, container, false);
         setHasOptionsMenu(true);
         ButterKnife.inject(this, v);
+
+        myLocationDBManager = new MyLocationDBManager(getActivity());
+
+        fab.setImageResource(R.mipmap.save);
+        fab.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
+        fab.attachToRecyclerView(recyclerView);
+
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override public void onClick(View v) {
+                if(cityWeatherResponse!=null){
+                    myLocationDBManager.saveCity(String.valueOf(cityWeatherResponse.getId()));
+                }
+            }
+        });
 
         getBundleData();
         setToolbar();
@@ -134,6 +152,8 @@ public class LocationWeatherForecastFragment extends Fragment implements Forecas
         forecastListAdapter = new ForecastListAdapter(getActivity(), forecast.getWeatherResponses(), cityWeatherResponse);
         forecastListAdapter.setRowClick(this);
         recyclerView.setAdapter(forecastListAdapter);
+
+        fab.attachToRecyclerView(recyclerView);
 
         loading.setVisibility(View.GONE);
     }

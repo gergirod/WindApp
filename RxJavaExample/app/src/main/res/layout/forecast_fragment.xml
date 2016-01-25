@@ -22,9 +22,10 @@
                 app:expandedTitleMarginStart="48dp"
                 app:expandedTitleMarginEnd="64dp"
                 >
-                <include
-                        layout="@layout/forecast_now_row"
-                        android:id="@+id/forecast_row"></include>
+            <include
+                    layout="@layout/forecast_now_row"
+                    android:id="@+id/forecast_row"
+                    ></include>
             <android.support.v7.widget.Toolbar
                     android:id="@+id/toolbar"
                     android:layout_width="match_parent"
@@ -39,12 +40,20 @@
             android:scrollbars="vertical"
             android:layout_width="fill_parent"
             android:layout_height="match_parent"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior">
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"
+            >
     </android.support.v7.widget.RecyclerView>
     <ProgressBar
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:id="@+id/loading"
+            />
+    <com.melnykov.fab.FloatingActionButton
+            android:id="@+id/fab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|right"
+            android:layout_margin="16dp"
             />
 </android.support.design.widget.CoordinatorLayout>
