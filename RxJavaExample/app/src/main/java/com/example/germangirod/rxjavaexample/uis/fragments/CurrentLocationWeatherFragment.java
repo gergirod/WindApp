@@ -19,6 +19,7 @@ import com.example.germangirod.rxjavaexample.data.presenters.LocationCurrentWeat
 import com.example.germangirod.rxjavaexample.uis.ForecastActivity;
 import com.example.germangirod.rxjavaexample.uis.widget.ArrowView;
 import com.example.germangirod.rxjavaexample.util.WeatherImageUtil;
+import com.google.android.gms.location.LocationServices;
 import org.parceler.Parcels;
 
 /**
@@ -58,6 +59,14 @@ public class CurrentLocationWeatherFragment extends LocationBaseFragment impleme
         }
 
         return v;
+    }
+
+    @Override public void onConnected(Bundle bundle) {
+        super.onConnected(bundle);
+        Location location = LocationServices.FusedLocationApi.getLastLocation(googleApiClient);
+        if (location != null) {
+            searchCurrentWeather(location);
+        }
     }
 
     @Override public void onLocationChanged(Location location) {
