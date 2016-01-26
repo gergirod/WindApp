@@ -74,20 +74,8 @@ public class LocationWeatherForecastFragment extends Fragment implements Forecas
         ButterKnife.inject(this, v);
 
         myLocationDBManager = new MyLocationDBManager(getActivity());
-
-        fab.setImageResource(R.mipmap.save);
-        fab.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
-        fab.attachToRecyclerView(recyclerView);
-
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override public void onClick(View v) {
-                if(cityWeatherResponse!=null){
-                    myLocationDBManager.saveCity(String.valueOf(cityWeatherResponse.getId()));
-                }
-            }
-        });
-
         getBundleData();
+        setFabButton();
         setToolbar();
         prepareList();
         if (savedInstanceState != null) {
@@ -100,6 +88,44 @@ public class LocationWeatherForecastFragment extends Fragment implements Forecas
         getForecast(String.valueOf(cityWeatherResponse.getId()));
 
         return v;
+    }
+
+    private void setFabButton() {
+
+        if (cityWeatherResponse != null) {
+
+            setFabImage(isSaved(String.valueOf(cityWeatherResponse.getId())));
+            fab.setColorPressed(getResources().getColor(R.color.colorPrimaryDark));
+            fab.setColorNormal(getResources().getColor(R.color.colorPrimary));
+            fab.attachToRecyclerView(recyclerView);
+
+            fab.setOnClickListener(new View.OnClickListener() {
+                @Override public void onClick(View v) {
+                    onFabPress(String.valueOf(cityWeatherResponse.getId()));
+                }
+            });
+        }
+    }
+
+    private void setFabImage(boolean isSaved) {
+        if (isSaved) {
+            fab.setImageResource(android.R.drawable.ic_menu_delete);
+        } else {
+            fab.setImageResource(R.mipmap.save);
+        }
+    }
+
+    private void onFabPress(String cityId) {
+        if (isSaved(String.valueOf(cityWeatherResponse.getId()))) {
+            myLocationDBManager.deleteCity(cityId);
+        } else {
+            myLocationDBManager.saveCity(cityId);
+        }
+        setFabImage(isSaved(String.valueOf(cityWeatherResponse.getId())));
+    }
+
+    private boolean isSaved(String cityId) {
+        return myLocationDBManager.isSaved(String.valueOf(cityId));
     }
 
     private void getBundleData() {

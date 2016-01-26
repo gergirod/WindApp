@@ -37,7 +37,9 @@ public class MyLocationDBManager extends SQLiteOpenHelper {
         sqLiteDatabase = getWritableDatabase();
         Date date = new Date();
         if (sqLiteDatabase != null) {
-            LocationContract.saveCity(cityId, date, sqLiteDatabase);
+            if (!isSaved(cityId)) {
+                LocationContract.saveCity(cityId, date, sqLiteDatabase);
+            }
         }
     }
 
