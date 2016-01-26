@@ -12,12 +12,23 @@ android {
         versionCode 1
         versionName "1.0"
         buildConfigField "String", "APP_KEY", "\"309a4b3765a633e00d2bc2716df74a53\""
+        multiDexEnabled true
     }
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
+    }
+
+    repositories{
+        mavenLocal()
+        flatDir{
+            dirs 'libs'
+        }
+        jcenter()
+        maven { url "https://jitpack.io" }
+
     }
 
 
@@ -40,6 +51,9 @@ dependencies {
 
     compile 'org.parceler:parceler-api:0.2.15'
     apt 'org.parceler:parceler:0.2.15'
+
+    compile('com.github.afollestad.material-dialogs:core:0.8.5.3@aar') {
+    }
 
 
 }

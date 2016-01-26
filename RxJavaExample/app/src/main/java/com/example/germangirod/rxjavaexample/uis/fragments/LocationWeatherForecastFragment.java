@@ -25,8 +25,10 @@ import com.example.germangirod.rxjavaexample.data.model.WeatherResponse;
 import com.example.germangirod.rxjavaexample.data.presenters.ForecastPresenter;
 import com.example.germangirod.rxjavaexample.data.presenters.ForecastWeatherData;
 import com.example.germangirod.rxjavaexample.data.storage.MyLocationDBManager;
+import com.example.germangirod.rxjavaexample.data.storage.StorageData;
 import com.example.germangirod.rxjavaexample.uis.adapters.ForecastListAdapter;
 import com.example.germangirod.rxjavaexample.uis.widget.ArrowView;
+import com.example.germangirod.rxjavaexample.util.DialogUtil;
 import com.example.germangirod.rxjavaexample.util.WeatherImageUtil;
 import com.melnykov.fab.FloatingActionButton;
 import org.parceler.Parcels;
@@ -34,7 +36,7 @@ import org.parceler.Parcels;
 /**
  * Created by germangirod on 10/19/15.
  */
-public class LocationWeatherForecastFragment extends Fragment implements ForecastPresenter, ForecastListAdapter.onRowClick {
+public class LocationWeatherForecastFragment extends Fragment implements ForecastPresenter, ForecastListAdapter.onRowClick, StorageData {
 
     private static final String SAVE_FORECAST_RESPONSE_STATE = "forecast_response_state";
     private static final String SAVE_WEATHER_RESPONSE_STATE = "weather_response_state";
@@ -56,6 +58,7 @@ public class LocationWeatherForecastFragment extends Fragment implements Forecas
     private WeatherResponse cityWeatherResponse;
     private Forecast forecast;
     private MyLocationDBManager myLocationDBManager;
+    private DialogUtil dialogUtil;
 
     public static Fragment getInstance(WeatherResponse weatherResponse) {
 
@@ -71,6 +74,7 @@ public class LocationWeatherForecastFragment extends Fragment implements Forecas
     @Nullable @Override public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.forecast_fragment, container, false);
         setHasOptionsMenu(true);
+        dialogUtil = new DialogUtil();
         ButterKnife.inject(this, v);
 
         myLocationDBManager = new MyLocationDBManager(getActivity());
@@ -101,7 +105,7 @@ public class LocationWeatherForecastFragment extends Fragment implements Forecas
 
             fab.setOnClickListener(new View.OnClickListener() {
                 @Override public void onClick(View v) {
-                    onFabPress(String.valueOf(cityWeatherResponse.getId()));
+                    onFabPress(cityWeatherResponse.getName(), String.valueOf(cityWeatherResponse.getId()));
                 }
             });
         }
@@ -115,13 +119,12 @@ public class LocationWeatherForecastFragment extends Fragment implements Forecas
         }
     }
 
-    private void onFabPress(String cityId) {
-        if (isSaved(String.valueOf(cityWeatherResponse.getId()))) {
-            myLocationDBManager.deleteCity(cityId);
+    private void onFabPress(String cityName, String cityId) {
+        if (isSaved(String.valueOf(cityId))) {
+            dialogUtil.createDeleteDialog(getActivity(), myLocationDBManager, cityName, cityId, this);
         } else {
-            myLocationDBManager.saveCity(cityId);
+            dialogUtil.createSaveDialog(getActivity(), myLocationDBManager, cityName, cityId, this);
         }
-        setFabImage(isSaved(String.valueOf(cityWeatherResponse.getId())));
     }
 
     private boolean isSaved(String cityId) {
@@ -207,5 +210,9 @@ public class LocationWeatherForecastFragment extends Fragment implements Forecas
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+    @Override public void onStorageActionFinished(String cityId) {
+        setFabImage(isSaved(cityId));
     }
 }
