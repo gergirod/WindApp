@@ -1,6 +1,6 @@
 # WindStalker
 
-<img src=https://cloud.githubusercontent.com/assets/3282448/13240843/b5a5e562-da31-11e5-8976-e932be9bd676.png width=150 height=300 />
+<img src=https://cloud.githubusercontent.com/assets/3282448/13240843/b5a5e562-da31-11e5-8976-e932be9bd676.png width=170 height=300 />
 
 ![](https://cloud.githubusercontent.com/assets/3282448/13240843/b5a5e562-da31-11e5-8976-e932be9bd676.png | width=100)
 
