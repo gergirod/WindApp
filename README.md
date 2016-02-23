@@ -14,3 +14,17 @@ Okhttp
 
 ButterKnife
 'com.jakewharton:butterknife:6.1.0'
+
+Joda Time
+'joda-time:joda-time:2.5'
+
+Floating ActionButton
+'com.melnykov:floatingactionbutton:1.3.0'
+
+Material Dialogs
+
+'com.github.afollestad.material-dialogs:core:0.8.5.3@aar'
+
+Parceler
+'org.parceler:parceler-api:0.2.15'
+
