@@ -29,6 +29,10 @@
                 android:name=".uis.ForecastActivity"
                 android:label="@string/app_name" >
         </activity>
+        <meta-data
+                android:name="io.fabric.ApiKey"
+                android:value="f65f1135c7339cbf00e9bf2a06a869802ef2fdf7"
+                />
     </application>
 
 </manifest>

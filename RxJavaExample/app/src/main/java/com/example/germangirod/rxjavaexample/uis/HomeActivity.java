@@ -9,11 +9,13 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
+import com.crashlytics.android.Crashlytics;
 import com.example.germangirod.rxjavaexample.R;
 import com.example.germangirod.rxjavaexample.data.model.WeatherResponse;
 import com.example.germangirod.rxjavaexample.data.presenters.LocationCurrentWeatherDataPresenter;
 import com.example.germangirod.rxjavaexample.uis.adapters.HomePagerAdapter;
 import com.example.germangirod.rxjavaexample.util.SearchViewUtil;
+import io.fabric.sdk.android.Fabric;
 import org.parceler.Parcels;
 
 /**
@@ -34,7 +36,7 @@ public class HomeActivity extends BaseActivity implements LocationCurrentWeather
 
     @Override protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        Fabric.with(this, new Crashlytics());
         ButterKnife.inject(this);
         setToolbar();
         setTableLayoutTabs();
