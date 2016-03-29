@@ -10,6 +10,7 @@ import android.view.Menu;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 import com.crashlytics.android.Crashlytics;
+import com.crashlytics.android.answers.Answers;
 import com.example.germangirod.rxjavaexample.R;
 import com.example.germangirod.rxjavaexample.data.model.WeatherResponse;
 import com.example.germangirod.rxjavaexample.data.presenters.LocationCurrentWeatherDataPresenter;
@@ -37,6 +38,7 @@ public class HomeActivity extends BaseActivity implements LocationCurrentWeather
     @Override protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Fabric.with(this, new Crashlytics());
+        Fabric.with(this, new Answers());
         ButterKnife.inject(this);
         setToolbar();
         setTableLayoutTabs();
