@@ -8,10 +8,10 @@ android {
 
     defaultConfig {
         applicationId "com.germangirod.windstalker"
-        minSdkVersion 18
+        minSdkVersion 19
         targetSdkVersion 22
-        versionCode 4
-        versionName "1.0.3"
+        versionCode 6
+        versionName "1.0.5"
         buildConfigField "String", "APP_KEY", "\"309a4b3765a633e00d2bc2716df74a53\""
         multiDexEnabled true
     }
