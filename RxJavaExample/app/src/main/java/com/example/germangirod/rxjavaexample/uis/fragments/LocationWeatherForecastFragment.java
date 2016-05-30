@@ -16,6 +16,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
@@ -53,6 +54,7 @@ public class LocationWeatherForecastFragment extends Fragment implements Forecas
     @InjectView(R.id.forecast_wind_speed) TextView forecastWindSpeed;
     @InjectView(R.id.forecast_wind_dg) TextView forecastWindDg;
     @InjectView(R.id.fab) FloatingActionButton fab;
+    @InjectView(R.id.cardContainer) RelativeLayout cardContainer;
     private ForecastWeatherData forecastWeatherData;
     private ForecastListAdapter forecastListAdapter;
     private WeatherResponse cityWeatherResponse;
@@ -76,7 +78,8 @@ public class LocationWeatherForecastFragment extends Fragment implements Forecas
         setHasOptionsMenu(true);
         dialogUtil = new DialogUtil();
         ButterKnife.inject(this, v);
-
+        cardView.setBackground(null);
+        cardContainer.setBackground(null);
         myLocationDBManager = new MyLocationDBManager(getActivity());
         getBundleData();
         setFabButton();

@@ -17,7 +17,7 @@
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
                 android:gravity="center"
-                >
+                android:id="@+id/cardViewContainer">
             <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -58,7 +58,6 @@
                     <com.example.germangirod.rxjavaexample.uis.widget.ArrowView
                             android:layout_width="140dp"
                             android:layout_height="140dp"
-                            android:src="@drawable/arrow"
                             android:id="@+id/arrow_wind"
                             android:visibility="gone"
                             android:layout_gravity="center"

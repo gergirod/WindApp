@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
@@ -38,6 +39,7 @@ public class CurrentLocationWeatherFragment extends LocationBaseFragment impleme
     @InjectView(R.id.pressure) TextView pressure;
     @InjectView(R.id.humidity) TextView humidity;
     @InjectView(R.id.date) TextView date;
+    @InjectView(R.id.cardViewContainer) RelativeLayout cardViewContainer;
     private LocationCurrentWeatherData locationCurrentWeatherData;
     private Location auxLocation;
     private WeatherResponse currentWeather;
@@ -50,7 +52,8 @@ public class CurrentLocationWeatherFragment extends LocationBaseFragment impleme
     @Override public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.current_location_fragment, container, false);
         ButterKnife.inject(this, v);
-
+        cardView.setBackground(null);
+        cardViewContainer.setBackground(null);
         cardView.setOnClickListener(this);
 
         if (savedInstanceState != null) {
@@ -125,6 +128,7 @@ public class CurrentLocationWeatherFragment extends LocationBaseFragment impleme
             pressure.setTextColor(getResources().getColor(R.color.white));
             temperature.setTextColor(getResources().getColor(R.color.white));
             humidity.setTextColor(getResources().getColor(R.color.white));
+            date.setTextColor(getResources().getColor(R.color.white));
         }
     }
 
